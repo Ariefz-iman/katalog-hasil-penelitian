@@ -1,0 +1,1181 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Katalog Hasil Penelitian & Inovasi - Poltekkes Kemenkes Tasikmalaya</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        kemenkes: {
+                            50: '#ecfdf5',
+                            100: '#d1fae5',
+                            500: '#10b981',
+                            600: '#059669',
+                            700: '#047857',
+                            800: '#065f46',
+                            900: '#064e3b',
+                        },
+                        poltekkes: {
+                            50: '#f0f9ff',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            900: '#0c4a6e',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+            .print-only {
+                display: block !important;
+            }
+            body {
+                background: white !important;
+                color: black !important;
+                font-size: 11pt;
+            }
+            .page-break {
+                page-break-after: always;
+            }
+            .print-card {
+                break-inside: avoid;
+                border: 1px solid #e2e8f0 !important;
+                margin-bottom: 1.5rem !important;
+                padding: 1.25rem !important;
+                box-shadow: none !important;
+            }
+        }
+        .print-only {
+            display: none;
+        }
+        .line-clamp-2 {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .line-clamp-3 {
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col antialiased selection:bg-emerald-500 selection:text-white">
+
+    <!-- Top Bar Navigation -->
+    <header class="no-print sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm transition-all">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Branding -->
+                <div class="flex items-center space-x-4">
+                    <div class="w-12 h-12 rounded-xl bg-gradient-to-tr from-emerald-600 to-teal-500 flex items-center justify-center text-white shadow-md shadow-emerald-200">
+                        <i class="fa-solid fa-microscope text-2xl"></i>
+                    </div>
+                    <div>
+                        <div class="flex items-center space-x-2">
+                            <span class="text-xs font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-emerald-100 text-emerald-800">E-Katalog Resmi</span>
+                            <span class="text-xs font-medium text-slate-500">Pusbangdik / PPPM</span>
+                        </div>
+                        <h1 class="text-lg sm:text-xl font-black text-slate-900 tracking-tight">POLTEKKES KEMENKES TASIKMALAYA</h1>
+                        <p class="text-xs text-slate-600 hidden sm:block">Katalog Elektronik Produk & Inovasi Hasil Penelitian Dosen</p>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="flex items-center space-x-2 sm:space-x-3">
+                    <button onclick="switchTab('catalog')" id="tab-btn-catalog" class="px-3 sm:px-4 py-2 rounded-lg text-sm font-semibold transition-all bg-emerald-600 text-white shadow-sm flex items-center space-x-2">
+                        <i class="fa-solid fa-shapes"></i>
+                        <span>Katalog</span>
+                    </button>
+                    <button onclick="switchTab('analytics')" id="tab-btn-analytics" class="px-3 sm:px-4 py-2 rounded-lg text-sm font-semibold transition-all text-slate-600 hover:bg-slate-100 flex items-center space-x-2">
+                        <i class="fa-solid fa-chart-pie"></i>
+                        <span class="hidden sm:inline">Statistik & Rekap</span>
+                    </button>
+                    <button onclick="exportToCSV()" class="p-2 sm:px-3 sm:py-2 rounded-lg text-sm font-semibold border border-slate-300 hover:bg-slate-100 text-slate-700 transition-all flex items-center space-x-2" title="Unduh Data CSV/Excel">
+                        <i class="fa-solid fa-file-csv text-emerald-600"></i>
+                        <span class="hidden md:inline">Ekspor CSV</span>
+                    </button>
+                    <button onclick="window.print()" class="px-3 py-2 rounded-lg text-sm font-semibold bg-slate-900 hover:bg-slate-800 text-white transition-all shadow-sm flex items-center space-x-2" title="Cetak Katalog ke PDF">
+                        <i class="fa-solid fa-print"></i>
+                        <span class="hidden sm:inline">Cetak PDF</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="no-print relative bg-gradient-to-br from-emerald-900 via-teal-900 to-slate-900 text-white py-14 overflow-hidden shadow-inner">
+        <!-- Background accents -->
+        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#10b981_1px,transparent_1px)] [background-size:16px_16px]"></div>
+        <div class="absolute -top-24 -right-24 w-96 h-96 bg-emerald-500/20 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute -bottom-24 -left-24 w-96 h-96 bg-teal-500/20 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="max-w-3xl">
+                <div class="inline-flex items-center space-x-2 bg-emerald-500/20 border border-emerald-400/30 px-3 py-1 rounded-full text-xs font-semibold text-emerald-300 mb-4 backdrop-blur-sm">
+                    <i class="fa-solid fa-award"></i>
+                    <span>Hilirisasi Riset Terapan & Teknologi Tepat Guna Bidang Kesehatan</span>
+                </div>
+                <h2 class="text-3xl sm:text-5xl font-black tracking-tight leading-tight text-white mb-4">
+                    Katalog Elektronik Inovasi Riset Kesehatan
+                </h2>
+                <p class="text-base sm:text-lg text-slate-300 mb-8 leading-relaxed font-normal">
+                    Showcase komprehensif prototipe teknologi tepat guna, sistem informasi kesehatan, aplikasi e-health, pangan fungsional, dan media edukasi unggulan karya sivitas akademika Poltekkes Kemenkes Tasikmalaya.
+                </p>
+            </div>
+
+            <!-- Metric Cards -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-2 border-t border-emerald-700/50">
+                <div class="bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-white/10">
+                    <div class="text-3xl sm:text-4xl font-extrabold text-emerald-400 mb-1">45</div>
+                    <div class="text-xs sm:text-sm text-slate-300 font-medium">Total Produk Inovasi</div>
+                </div>
+                <div class="bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-white/10">
+                    <div class="text-3xl sm:text-4xl font-extrabold text-teal-300 mb-1">6</div>
+                    <div class="text-xs sm:text-sm text-slate-300 font-medium">Jurusan / Program Studi</div>
+                </div>
+                <div class="bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-white/10">
+                    <div class="text-3xl sm:text-4xl font-extrabold text-amber-300 mb-1">45</div>
+                    <div class="text-xs sm:text-sm text-slate-300 font-medium">Paten & Hak Cipta</div>
+                </div>
+                <div class="bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-white/10">
+                    <div class="text-3xl sm:text-4xl font-extrabold text-cyan-300 mb-1">17</div>
+                    <div class="text-xs sm:text-sm text-slate-300 font-medium">TKT Terapan (Level 4-6+)</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Container -->
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+
+        <!-- TAB: CATALOG -->
+        <div id="tab-catalog">
+            
+            <!-- Filters & Controls Bar -->
+            <div class="no-print bg-white rounded-2xl p-5 shadow-sm border border-slate-200/80 mb-8 space-y-4">
+                
+                <!-- Search Bar -->
+                <div class="relative">
+                    <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                    <input type="text" id="searchInput" oninput="applyFilters()" placeholder="Cari inovasi berdasarkan judul, nama peneliti, kata kunci produk, keunggulan..." class="w-full pl-11 pr-24 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white text-sm transition-all">
+                    <button onclick="clearSearch()" id="clearSearchBtn" class="hidden absolute right-3 top-1/2 -translate-y-1/2 text-xs font-semibold px-2.5 py-1 bg-slate-200 hover:bg-slate-300 text-slate-600 rounded-lg transition-all">
+                        Reset
+                    </button>
+                </div>
+
+                <!-- Multi-Filter Dropdowns / Pills -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                    
+                    <!-- Jurusan (Corrected to Farmasi) -->
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Jurusan / Bidang</label>
+                        <select id="filterJurusan" onchange="applyFilters()" class="w-full py-2.5 px-3 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                            <option value="">Semua Jurusan</option>
+                            <option value="Kebidanan">Kebidanan</option>
+                            <option value="Keperawatan">Keperawatan</option>
+                            <option value="Kesehatan Gigi">Kesehatan Gigi</option>
+                            <option value="Gizi">Gizi</option>
+                            <option value="Rekam Medis & Informasi Kesehatan">Rekam Medis & Informasi Kesehatan (RMIK)</option>
+                            <option value="Farmasi">Farmasi</option>
+                        </select>
+                    </div>
+
+                    <!-- Kategori Inovasi -->
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Jenis Inovasi</label>
+                        <select id="filterKategori" onchange="applyFilters()" class="w-full py-2.5 px-3 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                            <option value="">Semua Jenis Inovasi</option>
+                            <option value="Teknologi Tepat Guna & Simulator">Teknologi Tepat Guna & Simulator</option>
+                            <option value="Aplikasi Digital & EWS">Aplikasi Digital & EWS</option>
+                            <option value="Pangan Fungsional & Gizi">Pangan Fungsional & Gizi</option>
+                            <option value="Buku, Modul & Media Edukasi">Buku, Modul & Media Edukasi</option>
+                            <option value="Farmasi & Terapi Komplementer">Farmasi & Terapi Komplementer</option>
+                            <option value="Intervensi & Rekomendasi Klinis">Intervensi & Rekomendasi Klinis</option>
+                        </select>
+                    </div>
+
+                    <!-- TKT -->
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Kesiapterapan (TKT)</label>
+                        <select id="filterTKT" onchange="applyFilters()" class="w-full py-2.5 px-3 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                            <option value="">Semua Level TKT</option>
+                            <option value="1-3">TKT 1 - 3 (Riset Dasar & Validasi Konsep)</option>
+                            <option value="4-6">TKT 4 - 6 (Prototipe & Validasi Lapangan)</option>
+                            <option value="7-9">TKT 7 - 9 (Siap Komersialisasi / Penerapan Luas)</option>
+                        </select>
+                    </div>
+
+                    <!-- HKI -->
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Status HKI</label>
+                        <select id="filterHKI" onchange="applyFilters()" class="w-full py-2.5 px-3 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                            <option value="">Semua Status HKI</option>
+                            <option value="terdaftar">Tercatat / Terdaftar (Paten & Hak Cipta)</option>
+                            <option value="proses">Dalam Proses Pengajuan</option>
+                            <option value="belum">Belum Terdaftar</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Secondary Control Row -->
+                <div class="flex flex-wrap items-center justify-between pt-2 border-t border-slate-100 gap-3">
+                    <div class="flex items-center space-x-2">
+                        <span class="text-xs text-slate-500 font-medium">Urutkan:</span>
+                        <select id="sortBy" onchange="applyFilters()" class="py-1.5 px-2.5 bg-slate-50 border border-slate-200 rounded-lg text-xs font-semibold text-slate-700 focus:outline-none">
+                            <option value="default">Default</option>
+                            <option value="judul-asc">Judul (A - Z)</option>
+                            <option value="tkt-desc">TKT Tertinggi</option>
+                            <option value="jurusan">Jurusan</option>
+                        </select>
+                    </div>
+
+                    <!-- View Switcher -->
+                    <div class="flex items-center space-x-2">
+                        <span class="text-xs text-slate-500 font-medium mr-1">Tampilan:</span>
+                        <div class="inline-flex rounded-lg border border-slate-200 p-0.5 bg-slate-50">
+                            <button onclick="setViewMode('grid')" id="viewBtnGrid" class="px-3 py-1 text-xs font-semibold rounded-md bg-white text-emerald-700 shadow-sm transition-all flex items-center space-x-1">
+                                <i class="fa-solid fa-grip"></i>
+                                <span>Grid</span>
+                            </button>
+                            <button onclick="setViewMode('table')" id="viewBtnTable" class="px-3 py-1 text-xs font-semibold rounded-md text-slate-600 hover:text-slate-900 transition-all flex items-center space-x-1">
+                                <i class="fa-solid fa-list"></i>
+                                <span>Tabel</span>
+                            </button>
+                        </div>
+                        <button onclick="resetAllFilters()" class="text-xs font-medium text-slate-500 hover:text-rose-600 transition-all ml-2 underline">
+                            Reset Semua
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Active Filter Indicator -->
+                <div id="filterSummaryBar" class="text-xs text-slate-500 pt-1 flex items-center justify-between">
+                    <div>Menampilkan <strong id="visibleCount" class="text-emerald-700 font-bold">45</strong> dari <strong class="text-slate-800 font-bold">45</strong> inovasi hasil penelitian</div>
+                </div>
+            </div>
+
+            <!-- RESULTS: Grid View -->
+            <div id="catalogGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Javascript will render cards here -->
+            </div>
+
+            <!-- RESULTS: Table View -->
+            <div id="catalogTableContainer" class="hidden bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-sm text-slate-700">
+                        <thead class="bg-slate-50 text-slate-600 text-xs uppercase tracking-wider border-b border-slate-200">
+                            <tr>
+                                <th class="py-4 px-4 font-bold">No</th>
+                                <th class="py-4 px-4 font-bold">Produk / Judul Inovasi</th>
+                                <th class="py-4 px-4 font-bold">Tim Peneliti</th>
+                                <th class="py-4 px-4 font-bold">Jurusan</th>
+                                <th class="py-4 px-4 font-bold">Jenis Inovasi</th>
+                                <th class="py-4 px-4 font-bold text-center">TKT</th>
+                                <th class="py-4 px-4 font-bold">Status HKI</th>
+                                <th class="py-4 px-4 font-bold text-center">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="catalogTableBody" class="divide-y divide-slate-100">
+                            <!-- Javascript will render rows here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Empty State -->
+            <div id="emptyState" class="hidden py-16 text-center">
+                <div class="w-16 h-16 rounded-full bg-slate-100 flex items-center justify-center text-slate-400 mx-auto mb-4 text-2xl">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </div>
+                <h3 class="text-lg font-bold text-slate-800 mb-1">Tidak ada inovasi yang sesuai filter</h3>
+                <p class="text-sm text-slate-500 mb-4">Coba ganti kata kunci pencarian atau reset filter yang dipilih.</p>
+                <button onclick="resetAllFilters()" class="px-4 py-2 bg-emerald-600 text-white rounded-xl text-sm font-semibold hover:bg-emerald-700 transition-all">
+                    Reset Semua Filter
+                </button>
+            </div>
+
+        </div>
+
+        <!-- TAB: ANALYTICS & REKAP -->
+        <div id="tab-analytics" class="hidden space-y-8">
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
+                <h3 class="text-xl font-bold text-slate-900 mb-2">Rekapitulasi Portofolio Inovasi Riset</h3>
+                <p class="text-sm text-slate-500 mb-6">Distribusi produk penelitian dosen berdasarkan bidang keilmuan, tingkat kesiapterapan teknologi (TKT), dan kepemilikan hak kekayaan intelektual (HKI).</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Jurusan Breakdown -->
+                    <div class="bg-slate-50 rounded-xl p-5 border border-slate-200/80">
+                        <h4 class="text-sm font-bold text-slate-800 uppercase tracking-wider mb-4 flex items-center space-x-2">
+                            <i class="fa-solid fa-hospital-user text-emerald-600"></i>
+                            <span>Distribusi per Jurusan</span>
+                        </h4>
+                        <div class="space-y-3" id="analyticsJurusanList">
+                            <!-- Injected by JS -->
+                        </div>
+                    </div>
+
+                    <!-- Kategori Inovasi Breakdown -->
+                    <div class="bg-slate-50 rounded-xl p-5 border border-slate-200/80">
+                        <h4 class="text-sm font-bold text-slate-800 uppercase tracking-wider mb-4 flex items-center space-x-2">
+                            <i class="fa-solid fa-cubes text-teal-600"></i>
+                            <span>Jenis Luaran Inovasi</span>
+                        </h4>
+                        <div class="space-y-3" id="analyticsKategoriList">
+                            <!-- Injected by JS -->
+                        </div>
+                    </div>
+
+                    <!-- TKT & HKI Stats -->
+                    <div class="bg-slate-50 rounded-xl p-5 border border-slate-200/80">
+                        <h4 class="text-sm font-bold text-slate-800 uppercase tracking-wider mb-4 flex items-center space-x-2">
+                            <i class="fa-solid fa-certificate text-amber-600"></i>
+                            <span>Kematangan Riset & HKI</span>
+                        </h4>
+                        <div class="space-y-4">
+                            <div>
+                                <div class="flex justify-between text-xs font-semibold mb-1">
+                                    <span class="text-slate-600">TKT 1 - 3 (Dasar & Lab)</span>
+                                    <span class="text-slate-900">28 Produk</span>
+                                </div>
+                                <div class="w-full bg-slate-200 rounded-full h-2">
+                                    <div class="bg-blue-500 h-2 rounded-full" style="width: 62.2%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-xs font-semibold mb-1">
+                                    <span class="text-slate-600">TKT 4 - 6 (Prototipe Terapan)</span>
+                                    <span class="text-slate-900">16 Produk</span>
+                                </div>
+                                <div class="w-full bg-slate-200 rounded-full h-2">
+                                    <div class="bg-emerald-500 h-2 rounded-full" style="width: 35.6%"></div>
+                                </div>
+                            </div>
+                            <div class="pt-4 border-t border-slate-200">
+                                <div class="flex justify-between text-xs font-semibold mb-1">
+                                    <span class="text-slate-600">HKI Terdaftar (Paten / Cipta)</span>
+                                    <span class="text-emerald-700 font-bold">22 Inovasi</span>
+                                </div>
+                                <div class="w-full bg-slate-200 rounded-full h-2">
+                                    <div class="bg-emerald-600 h-2 rounded-full" style="width: 48.9%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-xs font-semibold mb-1">
+                                    <span class="text-slate-600">HKI Proses Pengajuan</span>
+                                    <span class="text-amber-700 font-bold">23 Inovasi</span>
+                                </div>
+                                <div class="w-full bg-slate-200 rounded-full h-2">
+                                    <div class="bg-amber-500 h-2 rounded-full" style="width: 51.1%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- PRINT BOOKLET CONTAINER (Visible when printing) -->
+    <div class="print-only p-8">
+        <div class="text-center border-b-2 border-slate-900 pb-6 mb-8">
+            <h1 class="text-2xl font-black uppercase text-slate-900">Katalog Elektronik Inovasi Hasil Penelitian</h1>
+            <h2 class="text-lg font-bold text-slate-700">Politeknik Kesehatan Kementerian Kesehatan Tasikmalaya</h2>
+            <p class="text-xs text-slate-500 mt-1">Pusat Pengembangan Pendidikan (PUSBANGDIK) & PPPM</p>
+        </div>
+        <div id="printCatalogContainer" class="space-y-6">
+            <!-- Rendered by JS for print -->
+        </div>
+    </div>
+
+    <!-- MODAL DETAIL DIALOG -->
+    <div id="detailModal" class="no-print fixed inset-0 z-50 hidden overflow-y-auto bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-4xl w-full shadow-2xl overflow-hidden max-h-[92vh] flex flex-col transform transition-all duration-300 scale-95 opacity-0" id="modalCard">
+            
+            <!-- Modal Header -->
+            <div class="p-6 border-b border-slate-100 flex items-start justify-between bg-slate-50/50">
+                <div class="pr-6">
+                    <div class="flex items-center space-x-2 mb-2">
+                        <span id="modalJurusanBadge" class="text-xs font-bold px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800"></span>
+                        <span id="modalKategoriBadge" class="text-xs font-bold px-2.5 py-0.5 rounded-full bg-slate-200 text-slate-700"></span>
+                        <span id="modalTKTBadge" class="text-xs font-bold px-2.5 py-0.5 rounded-full bg-blue-100 text-blue-800"></span>
+                    </div>
+                    <h3 id="modalTitle" class="text-xl sm:text-2xl font-extrabold text-slate-900 leading-snug"></h3>
+                </div>
+                <button onclick="closeModal()" class="w-10 h-10 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-800 flex items-center justify-center transition-all flex-shrink-0">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+
+            <!-- Modal Body (Scrollable) -->
+            <div class="p-6 overflow-y-auto space-y-6 flex-grow">
+                
+                <!-- Main Grid: Image + Specs -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+                    
+                    <!-- Product Image with Fullscreen Lightbox Trigger -->
+                    <div class="relative group cursor-zoom-in rounded-2xl overflow-hidden bg-slate-100 border border-slate-200/80 shadow-inner flex items-center justify-center min-h-[260px] max-h-[360px]" onclick="triggerModalImageFullscreen()">
+                        <img id="modalImage" src="" alt="Ilustrasi Produk" class="w-full h-full object-contain p-2 max-h-[360px] transition-transform duration-300 group-hover:scale-105">
+                        
+                        <!-- Hover Overlay to indicate Click-to-Zoom -->
+                        <div class="absolute inset-0 bg-slate-950/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none">
+                            <span class="px-4 py-2 rounded-xl bg-white/95 text-slate-900 text-xs font-bold shadow-lg flex items-center space-x-2 transform translate-y-2 group-hover:translate-y-0 transition-transform">
+                                <i class="fa-solid fa-up-right-and-down-left-from-center text-emerald-600"></i>
+                                <span>Klik untuk Memperbesar Fullscreen</span>
+                            </span>
+                        </div>
+
+                        <!-- Fallback if no image -->
+                        <div id="modalImageFallback" class="hidden p-8 text-center text-slate-400">
+                            <i class="fa-solid fa-shapes text-5xl mb-3 text-slate-300"></i>
+                            <div class="text-sm font-semibold">Foto Dokumen Inovasi</div>
+                        </div>
+                    </div>
+
+                    <!-- Research Specifications Table -->
+                    <div class="space-y-3 bg-slate-50/80 rounded-2xl p-4 border border-slate-200/60">
+                        <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Spesifikasi & Status Riset</h4>
+                        
+                        <div class="flex items-center justify-between text-xs py-1.5 border-b border-slate-200/60">
+                            <span class="text-slate-500 font-medium">Skema Penelitian:</span>
+                            <span id="modalSkema" class="font-bold text-slate-800 text-right"></span>
+                        </div>
+
+                        <div class="flex items-center justify-between text-xs py-1.5 border-b border-slate-200/60">
+                            <span class="text-slate-500 font-medium">Tingkat Kesiapan (TKT):</span>
+                            <span id="modalTKTDetail" class="font-bold text-emerald-700 text-right"></span>
+                        </div>
+
+                        <div class="flex items-center justify-between text-xs py-1.5 border-b border-slate-200/60">
+                            <span class="text-slate-500 font-medium">Status HKI:</span>
+                            <span id="modalHKI" class="font-bold text-slate-800 text-right"></span>
+                        </div>
+
+                        <div class="flex items-center justify-between text-xs py-1.5 border-b border-slate-200/60">
+                            <span class="text-slate-500 font-medium">Uji Laboratorium / Uji Klinis:</span>
+                            <span id="modalUjiLab" class="font-bold text-slate-800 text-right"></span>
+                        </div>
+
+                        <div class="pt-2">
+                            <span class="text-xs text-slate-500 font-medium block mb-1">Tim Peneliti:</span>
+                            <div id="modalPenelitiList" class="space-y-1"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Description -->
+                <div>
+                    <h4 class="text-sm font-bold uppercase tracking-wider text-slate-900 mb-2 flex items-center space-x-2">
+                        <i class="fa-solid fa-circle-info text-emerald-600"></i>
+                        <span>Deskripsi Singkat Produk</span>
+                    </h4>
+                    <p id="modalDeskripsi" class="text-sm text-slate-700 leading-relaxed bg-slate-50 p-4 rounded-2xl border border-slate-100"></p>
+                </div>
+
+                <!-- Key Advantages -->
+                <div>
+                    <h4 class="text-sm font-bold uppercase tracking-wider text-slate-900 mb-2 flex items-center space-x-2">
+                        <i class="fa-solid fa-star text-amber-500"></i>
+                        <span>Keunggulan & Nilai Kebaruan (Novelty)</span>
+                    </h4>
+                    <div id="modalKeunggulan" class="text-sm text-slate-700 leading-relaxed bg-amber-50/50 p-4 rounded-2xl border border-amber-200/60 text-amber-950 font-medium"></div>
+                </div>
+
+                <!-- Contact & Institution -->
+                <div class="p-4 rounded-2xl bg-slate-900 text-white flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <div>
+                        <div class="text-xs text-emerald-400 font-bold uppercase tracking-wider mb-0.5">Kontak Tim Peneliti</div>
+                        <div id="modalKontakNama" class="text-sm font-extrabold text-white"></div>
+                        <div id="modalKontakInstitusi" class="text-xs text-slate-400">Poltekkes Kemenkes Tasikmalaya</div>
+                    </div>
+                    <div id="modalEmailAction" class="flex-shrink-0">
+                        <!-- Email button -->
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="p-4 bg-slate-50 border-t border-slate-200 flex items-center justify-between">
+                <button onclick="printSingleFlyer()" class="px-4 py-2 text-xs font-semibold text-slate-700 bg-white border border-slate-300 rounded-xl hover:bg-slate-100 flex items-center space-x-2 transition-all">
+                    <i class="fa-solid fa-print"></i>
+                    <span>Cetak Lembar Inovasi</span>
+                </button>
+                <button onclick="closeModal()" class="px-5 py-2 text-xs font-bold text-white bg-slate-900 rounded-xl hover:bg-slate-800 transition-all">
+                    Tutup
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- FULLSCREEN LIGHTBOX IMAGE VIEWER -->
+    <div id="lightboxModal" class="no-print fixed inset-0 z-[100] hidden bg-slate-950/95 backdrop-blur-md flex flex-col justify-between transition-all duration-300 opacity-0" onclick="handleLightboxBackdropClick(event)">
+        <!-- Top Control Bar -->
+        <div class="p-4 flex items-center justify-between text-white border-b border-white/10 z-10 bg-slate-950/60" onclick="event.stopPropagation()">
+            <div class="flex items-center space-x-3 max-w-xl truncate">
+                <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-500/30 border border-emerald-400/40 text-emerald-300">
+                    Fullscreen Image
+                </span>
+                <h4 id="lightboxTitle" class="text-sm font-bold text-slate-100 truncate"></h4>
+            </div>
+            
+            <!-- Controls (Zoom, Reset, Download, Close) -->
+            <div class="flex items-center space-x-2">
+                <button onclick="zoomLightbox(0.2)" class="w-9 h-9 rounded-xl bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-all text-xs" title="Perbesar (Zoom In)">
+                    <i class="fa-solid fa-magnifying-glass-plus"></i>
+                </button>
+                <button onclick="zoomLightbox(-0.2)" class="w-9 h-9 rounded-xl bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-all text-xs" title="Perkecil (Zoom Out)">
+                    <i class="fa-solid fa-magnifying-glass-minus"></i>
+                </button>
+                <button onclick="resetLightboxZoom()" class="px-2.5 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-all text-xs font-semibold" title="Reset Ukuran">
+                    <span id="lightboxZoomLabel">100%</span>
+                </button>
+                <a id="lightboxDownloadBtn" href="" download class="w-9 h-9 rounded-xl bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-all text-xs" title="Unduh Gambar Asli">
+                    <i class="fa-solid fa-download"></i>
+                </a>
+                <button onclick="closeLightbox()" class="w-9 h-9 rounded-xl bg-rose-600 hover:bg-rose-500 text-white flex items-center justify-center transition-all text-sm font-bold ml-2 shadow-md" title="Tutup (ESC)">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Center Image Viewport -->
+        <div class="flex-grow flex items-center justify-center p-4 overflow-auto relative select-none" id="lightboxCanvas" onwheel="handleLightboxWheel(event)">
+            <img id="lightboxImage" src="" alt="Detail Inovasi Fullscreen" class="max-w-[95vw] max-h-[85vh] object-contain rounded-xl shadow-2xl transition-transform duration-200">
+        </div>
+
+        <!-- Bottom Status Bar -->
+        <div class="p-3 text-center text-xs text-slate-400 border-t border-white/10 z-10 bg-slate-950/60" onclick="event.stopPropagation()">
+            <span>Klik tombol zoom di atas atau gunakan scroll mouse • Tekan <kbd class="px-1.5 py-0.5 rounded bg-white/10 text-white font-mono text-[10px]">ESC</kbd> untuk kembali</span>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="no-print bg-white border-t border-slate-200 py-8 text-center text-xs text-slate-500 mt-12">
+        <div class="max-w-7xl mx-auto px-4 space-y-2">
+            <p class="font-bold text-slate-700">POLITEKNIK KESEHATAN KEMENTERIAN KESEHATAN TASIKMALAYA</p>
+            <p>Pusat Pengembangan Pendidikan (PUSBANGDIK) & Pusat Penelitian dan Pengabdian Masyarakat (PPPM)</p>
+            <p class="text-slate-400">Jl. Cilolohan No. 35, Tasikmalaya, Jawa Barat | Sistem E-Katalog Inovasi Riset Kesehatan</p>
+        </div>
+    </footer>
+
+    <!-- INLINE SCRIPT: DATA & INTERACTIVITY -->
+    <script>
+        // Master Catalog Dataset
+        const CATALOG_DATA = [{"id": "1-1b2bq4-YpIWDY3rFsovV3Pvt9omSW6Z", "filename": "2. Desain Katalog Penelitian - Dyah Widiyastuti.pptx", "judul": "Paket Media Edukasi Interaktif Pencegahan Diabetes Melitus (DM) 'Sahabat Cerdik DM'", "peneliti": ["Bdn. Dyah Widiyastuti, SST, M.Keb", "Lia Nurcahyani, SST, MPH"], "jurusan": "Kebidanan", "skema": "PDUPT (Penelitian Dasar Unggulan Perguruan Tinggi)", "tkt": "TKT 2 - 3 (Validasi Konsep)", "kategori_tkt": "1-3", "hki": "Dalam Proses Pengajuan", "uji_lab": "Uji Ahli Media & Materi (Valid)", "kategori_inovasi": "Aplikasi Digital & EWS", "deskripsi": "", "keunggulan": "Mengintegrasikan aplikasi Android/web dengan video edukasi interaktif dan modul terstruktur, praktis diakses oleh masyarakat berisiko DM.", "kontak_nama": "Dyah Widiyastuti", "kontak_email": "dyahwidiyastuti141@gmail.com", "kontak_raw": "Dyah Widiyastuti] [Jurusan Kebidanan]Poltekkes Kemenkes Tasikmalaya [dyahwidiyastuti141@gmail.com", "image": "1-1b2bq4-YpIWDY3rFsovV3Pvt9omSW6Z_image5.png", "slug": "paket-media-edukasi-interaktif-pencegaha"}, {"id": "1-F8ajT-gvPhIWF", "filename": "JRWTuEdZH7-eFgPEi_DESAIN KATALOG PENELITIAN Rudi_TIM 2026 - Rena Setiana Primawati.pptx", "judul": "Monograf Hasil Penelitian “Hubungan diet Gizi dengan Kadar Gula darah, Karies Gigi dan Kondisi Jaringan Periodontal pada Penderita Diabetes mellitus di Puskesmas Kersanagara", "peneliti": ["Rudi Triyanto, SSiT,MDsci", "Rena Setiana P, SST, M.K.M", "Drg Cahyo N, MDSc", "Agung Widyagdo, MDSc", "Yusrima syamsina W, SST, M.K.M", "Nisatami Husnul, SGz. MGz"], "jurusan": "Kesehatan Gigi", "skema": "Penelitian Terapan Unggulan Pergutuan Tinggi", "tkt": "TKT 3", "kategori_tkt": "Hubungan Diet Gizi dengan kadar gula darah, Karies Gigi dan Jaringan Periodontal pada Penderita Diabetes Mellitus di Puskesmas Kersanagara", "hki": "Belum Terdaftar", "uji_lab": "Tidak (Uji Lapangan Terbatas)", "kategori_inovasi": "Pangan Fungsional & Gizi", "deskripsi": "Monograf hasil penelitian dengan judul “ Hubungan diet Gizi dengan kadar Gula Darah, Karies Gigi dan Jaringan Periodontal pada penderita Diabetes Mellitus menyajikan hasil penelitian yang mengkaji keterkaitan pola konsumsi gizi dengan kondisi kesehatan sistematik dan kesehatan rongga mulut. Keunggulan : Monograf diharapkan menjadi sumber refernesi bagi dosen, mahasiswa, peneliti serta tenaga kesehatan gigi.", "keunggulan": "Deskripsi singkat produk]:Monograf hasil penelitian dengan judul “ Hubungan diet Gizi dengan kadar Gula Darah, Karies Gigi dan Jaringan Periodontal pada penderita Diabetes Mellitus menyajikan hasil penelitian yang mengkaji keterkaitan pola konsumsi gizi dengan kondisi kesehatan sistematik dan kesehatan rongga mulut. Keunggulan : Monograf diharapkan menjadi sumber refernesi bagi dosen, mahasiswa, peneliti serta tenaga kesehatan gigi.", "kontak_nama": "Rudi Triyanto, SSiT,MDSc", "kontak_email": "masruditasik@gmail.com", "kontak_raw": "Rudi Triyanto, SSiT,MDSc [Jurusan Kesehatan Gigi]Poltekkes Kemenkes Tasikmalaya [masruditasik@gmail.com", "image": "1-F8ajT-gvPhIWF_image5.png", "slug": "monograf-hasil-penelitian-hubungan-diet-"}, {"id": "149yXZoh-mPc", "filename": "hW9FRf9397Z7LnLhz_V__Desain Katalog Penelitian - Yeni Fitrianingsih.pptx", "judul": "INTERVENSI GIZI SPESIFIK BERBASIS PANGAN LOKAL UNTUK PENCEGAHAN STUNTING DAN ANEMIA PADA BADUTA MENGGUNAKAN OPTIFOOD LINIER PROGRAMMING", "peneliti": ["Dr. Yeni Fitrianingsih,SST, Mkes", "Priyo Sulistiyono, SKM,MKM", "Suratmi, SST, Mkeb", "Rahmani Azzahra, Amd.Gizi"], "jurusan": "Kebidanan", "skema": "PTUPT", "tkt": "TKT 6", "kategori_tkt": "Produk panduan dan paket edukasi yang telah diuji pada lingkungan relevan dan siap untuk adopsi program.", "hki": "Dalam Proses Pengajuan", "uji_lab": "Tidak (Uji Lapangan Terbatas)", "kategori_inovasi": "Pangan Fungsional & Gizi", "deskripsi": "PGS-PL adalah sebuah produk inovasi kesehatan promotif-preventif berupa panduan gizi spesifik lokal yang dirancang khusus untuk meningkatkan mutu asupan gizi serta menurunkan risiko stunting dan anemia pada anak usia di bawah dua tahun (baduta, 6–23 bulan).Berbeda dengan edukasi gizi konvensional, produk ini dikembangkan menggunakan metode ilmiah Optifood Linear Programming. Pendekatan ini mampu mengidentifikasi masalah nutrien secara presisi dan menghasilkan rekomendasi pangan yang realistis, terjangkau, dan berbasis kearifan lokal (menyesuaikan dengan pola konsumsi, harga, ketersediaan pangan, serta konteks sosial budaya masyarakat setempat).", "keunggulan": "", "kontak_nama": "Dr. Yeni Fitrianingsih,SST,MKes", "kontak_email": "", "kontak_raw": "Dr. Yeni Fitrianingsih,SST,MKesJurusan KebidananPoltekkes Kemenkes Tasikmalaya Yeni.fitrianingsih@dosen@poltekkestasikmalaya", "image": "149yXZoh-mPc_image5.png", "slug": "intervensi-gizi-spesifik-berbasis-pangan"}, {"id": "14dfM8F95em66qIuUxULSqVQqj7OeR860", "filename": "DESAIN KATALOG PENELITIAN lina 2026 - Winda Fratiwi.pptx", "judul": "Poster Edukasi Analisis Kualitas Pelayanan Laboratorium Pendidikan terhadap Kepuasan Mahasiswa", "peneliti": ["Lina Rismayani, S.ST., M.Kes", "Winda Fratiwi"], "jurusan": "Kesehatan Gigi", "skema": "Penelitian Mandiri", "tkt": "TKT 2 (Formulasi Konsep)", "kategori_tkt": "Pengukuran kualitas pelayanan dengan kepuasan mahasiswa.", "hki": "Hak Cipta (Proses)", "uji_lab": "Uji Validitas & Reliabilitas Instrumen", "kategori_inovasi": "Buku, Modul & Media Edukasi", "deskripsi": "Poster dikembangkan oleh peneliti yang berisi ringkasan hasil penelitian berjudul \"Hubungan Kualitas Pelayanan Laboratorium Pendidikan dengan Tingkat Kepuasan Mahasiswa di Jurusan Kesehatan Gigi Poltekkes Kemenkes Tasikmalaya.\" Poster dirancang untuk memberikan gambaran secara singkat mengenai latar belakang, tujuan, metode, hasil penelitian, serta kesimpulan yang diperoleh. Keunggulan : Informasi di sampaikan secara ringkas dan sistematis, sehingga pembaca dapat memahami latar belakang, tujuan, metode, hasil, dan kesimpulan penelitian dalam waktu singka", "keunggulan": "Menyajikan data evaluasi mutu layanan laboratorium pendidikan kesehatan gigi secara infografis aplikatif.", "kontak_nama": "Lina Rismayani", "kontak_email": "rahayuculia67@gmail.com", "kontak_raw": "Lina Rismayani] [Jurusan Kesehatan Gigi]Poltekkes Kemenkes Tasikmalaya [rahayuculia67@gmail.com", "image": "14dfM8F95em66qIuUxULSqVQqj7OeR860_image5.png", "slug": "poster-edukasi-analisis-kualitas-pelayan"}, {"id": "15Rv-c0DjAFf8DMYLohuxNzzvH87RRL4H", "filename": "Desain Katalog Penelitian Lina 2026 - Lina Rismayani.pptx", "judul": "Sediaan Topikal Semisolid Kombinasi CPP-ACP 10%, Ekstrak Daun Jambu Biji, dan Ekstrak Buah Strawberry untuk Remineralisasi Gigi", "peneliti": ["Lina Rismayani, S.ST., M.Kes", "Dr. drg. Emma Kamelia, M.Biomed"], "jurusan": "Kesehatan Gigi", "skema": "PKPT (Penelitian Kerja Sama Antar Perguruan Tinggi)", "tkt": "TKT 3 (Uji Formulasi In Vitro)", "kategori_tkt": "tahap pembuktian konsep awal melalui pembuatan formulasi sediaan topikal dan pengujian karakteristik sediaan", "hki": "Paten / Hak Cipta (Dalam Proses)", "uji_lab": "Ya (Uji Karakterisasi Laboratorium & Remineralisasi Enamel)", "kategori_inovasi": "Farmasi & Terapi Komplementer", "deskripsi": "Produk penelitian berupa sediaan topikal semisolid kombinasi CPP-ACP 10%, ekstrak daun jambu biji (Psidium guajava L.), dan ekstrak buah strawberry (Fragaria × ananassa). Produk dikembangkan sebagai kandidat bahan perawatan gigi untuk membantu remineralisasi email sekaligus berpotensi menghambat pertumbuhan dan pembentukan plak oleh Streptococcus mutans, khususnya pada anak stunting. Formulasi aktif dibuat dalam tiga variasi, yaitu ekstrak daun jambu biji 35–55% dan ekstrak strawberry 2–6%. Karakteristik produk dievaluasi melalui uji organoleptik, homogenitas, pH, viskositas, daya sebar, dan daya lekat.", "keunggulan": "Kombinasi agen bioaktif alami ekstrak daun jambu biji dan buah strawberry dengan CPP-ACP yang mempercepat remineralisasi mikrolesi enamel.", "kontak_nama": "Lina Rismayani", "kontak_email": "lina.rismayani@dosen.poltekkestasikmalaya.ac.id", "kontak_raw": "Lina Rismayani] [Jurusan Kesehatan Gigi]Poltekkes Kemenkes Tasikmalaya [lina.rismayani@dosen.poltekkestasikmalaya.ac.id", "image": "15Rv-c0DjAFf8DMYLohuxNzzvH87RRL4H_image5.png", "slug": "sediaan-topikal-semisolid-kombinasi-cpp-"}, {"id": "16KrhGiqtsy3XW6RkM4uppzerfPkOBnFW", "filename": "Dina Setiawati_Desain Katalog Penelitian - Prodi Gizi Tasikmalaya Polkestama.pptx", "judul": "Formulasi Food Bar Berbasis Tepung Pisang Kepok dan Kacang Hijau untuk Balita Wasting", "peneliti": ["Dina Setiawati, S.Gz, M.Gz, Dietesien"], "jurusan": "Gizi", "skema": "Penelitian Mandiri", "tkt": "TKT 3 (Uji Formulasi Laboratorium)", "kategori_tkt": "", "hki": "Hak Cipta / Paten Sederhana (Proses)", "uji_lab": "Ya (Uji Kadar Proksimat, Energi, Serat & Mutu Organoleptik)", "kategori_inovasi": "Pangan Fungsional & Gizi", "deskripsi": "Food Bar berbasis tepung pisang kepok dan tepung kacang hijau dengan tambahan kacang tanah dan kurma sebagai alternatif snack / makanan selingan bagi penderita DM. Pengaturan dan pemilihan bahan makanan penting untuk mengontrol glukosa darah salah satunya adalah bahan makanan tinggi serat. Pisang kepok dan Kacang hijau merupakan salah satu bahan pangan tinggi serat dan protein, yang berfungsi meningkatkan sensitifitas hormon insulin sehingga dapat mengontrol kadar glukosa darah penyandang DM.", "keunggulan": "Tinggi energi, tinggi serat (>6 g/100 g), mengandung pati resisten alami yang ramah pencernaan balita berisiko gagal tumbuh.", "kontak_nama": "Dina Setiawati, S.Gz, M.Gz, Dietesien", "kontak_email": "dina.setiawati@dosen.poltekkestasikmalaya.ac.id", "kontak_raw": "Dina Setiawati, S.Gz, M.Gz, Dietesien] [Jurusan Gizi]Poltekkes Kemenkes Tasikmalaya [dina.setiawati@dosen.poltekkestasikmalaya.ac.id", "image": "16KrhGiqtsy3XW6RkM4uppzerfPkOBnFW_image5.png", "slug": "formulasi-food-bar-berbasis-tepung-pisan"}, {"id": "18EVtAmTK-3Dj9xRcsGuBBFUX1unx1KDn", "filename": "Desain Katalog Penelitian_Efektifitas Model Pelatihan Kelas Edukasi Laktasi_PTUPT 2026 - Pepi Hapitria.pptx", "judul": "Breastfeeding Monopoly: Media Edukasi Interaktif Kelas Edukasi Laktasi bagi Bidan dan Nutrisionis", "peneliti": ["Pepi Hapitria, SST, M.Keb", "Neli Nurlina, SST, M.Keb"], "jurusan": "Kebidanan", "skema": "PTUPT (Penelitian Terapan Unggulan Perguruan Tinggi)", "tkt": "TKT 5 (Validasi Lapangan Terbatas)", "kategori_tkt": "", "hki": "Hak Cipta Terdaftar", "uji_lab": "Uji Validitas Ahli & Uji Efektivitas Intervensi", "kategori_inovasi": "Buku, Modul & Media Edukasi", "deskripsi": "Breastfeeding Monopoly hasil pengembangan penelitian sebelumnya, merupakan media edukasi tentang manajemen laktasi yang interaktif memuat tentang materi-materi tentang laktasi termasuk keterampilan untuk suksesnya ASI Ekslusif. Tidak hanya menyuguhkan materi namun juga praktik. Media ini dapat digunakan sebagai media edukasi tidak hanya untuk ibu hamil sebagai persiapan menyusui, tapi dapat digunakan untuk ibu nifas, kader, kelompok pendukung ASI bahkan mahasiswa.", "keunggulan": "Gamifikasi edukasi menyusui yang menyenangkan dan terbukti efektif meningkatkan efikasi diri kader dan tenaga kesehatan.", "kontak_nama": "Pepi Hapitria", "kontak_email": "", "kontak_raw": "Pepi Hapitria] (Jurusan Kebidanan]Poltekkes Kemenkes Tasikmalaya [email@domain", "image": "18EVtAmTK-3Dj9xRcsGuBBFUX1unx1KDn_image5.png", "slug": "breastfeeding-monopoly-media-edukasi-int"}, {"id": "1AAam7X115h-Mfxlxp4dADAC2-jUO18FE", "filename": "Dental Health Education Model dalam menunjang Pengetahuan Kesehatan - Nia Daniati.pptx", "judul": "Dental Health Education (DHE) Model untuk Meningkatkan Keterampilan Kader dan Kualitas Hidup Kesehatan Gigi", "peneliti": ["Dr. Hj. Nia Daniati, S.Si.T, M.Kes", "Aan Kusmana, SKM, MA.Kes", "Anang, S.Si.T, MDSc"], "jurusan": "Kesehatan Gigi", "skema": "Penelitian Terapan Unggulan", "tkt": "TKT 4 (Validasi Sistem Lapangan)", "kategori_tkt": "", "hki": "Hak Cipta Terdaftar", "uji_lab": "Uji Kualitas Hidup (OHRQoL) & Indeks Plak", "kategori_inovasi": "Buku, Modul & Media Edukasi", "deskripsi": "", "keunggulan": "Model komprehensif pelatihan kader kesehatan gigi berbasis pemberdayaan masyarakat posyandu.", "kontak_nama": "Nia Daniati", "kontak_email": "", "kontak_raw": "", "image": "1AAam7X115h-Mfxlxp4dADAC2-jUO18FE_image2.png", "slug": "dental-health-education-dhe-model-untuk-"}, {"id": "1AyFPHmAXYe4jVnSTzZf9NI3u2WEx-LyV", "filename": "DESAIN KATALOG PENELITIAN RENA_TIM 2026 - Rena Setiana Primawati.pptx", "judul": "Digital Activity Book Kesehatan Gigi dan Mulut bagi Pasien Diabetes Mellitus", "peneliti": ["Rena Setiana Primawati, SST, M.K.M", "drg. Anie Kristiani, M.Kes", "Hilmiy Ila Robbihi"], "jurusan": "Kesehatan Gigi", "skema": "PKPT (Penelitian Kerjasama Antar Perguruan Tinggi)", "tkt": "TKT 3 (Prototipe Aplikasi Teruji)", "kategori_tkt": "Pengukuran Kognitif dan Psikomotor sebelum dan sesudah Promosi Kesehatan Gigi.", "hki": "Hak Cipta Terdaftar", "uji_lab": "Uji Efektivitas Pengetahuan & Perilaku", "kategori_inovasi": "Aplikasi Digital & EWS", "deskripsi": "Activity book Kesehatan Gigi berbasis digital dikembangkan oleh peneliti yang berisi buku aktivitas sehari hari bagi penderita Diabetes mellitus tentang manifestasi penyakit pada diabetes mellitus dan hubungannya dengan kesehatan gigi dan mulut, perawatan dan pemeliharaan kesehatan gigi dan mulut pada pasien diabetes mellitus, sehingga tujuan akhirnya adalah meningkatkan derajat kesehatan pada penderita diabetes mellitus. Keunggulan : Metode promosi kesehatan gigi saat ini dituntut untuk lebih inovatif dan menarik. Pengembangan activity book berbasis digital merupakan sarana yang tepat untuk meningkatkan pengetahuan, sikap dan perilaku kesehatan gigi dan mulut pada pasien diabetes mellitus", "keunggulan": "Aplikasi interaktif edukatif yang mempermudah penderita DM menjaga kesehatan periodontal secara mandiri.", "kontak_nama": "Rena Setiana Primawati", "kontak_email": "", "kontak_raw": "Rena Setiana Primawati [Jurusan Kesehatan Gigi]Poltekkes Kemenkes Tasikmalaya [rena,setiana.p@ dosen.poltekkestasikmalaya.ac.id", "image": "1AyFPHmAXYe4jVnSTzZf9NI3u2WEx-LyV_image5.png", "slug": "digital-activity-book-kesehatan-gigi-dan"}, {"id": "1BhsNedy9cIH1R9Vrx1iZoNDb0t", "filename": "3Lzf2_INSTRUMEN PENELITIAN Penget Kader ttg stunting (2) - Prodi D-III Keperawatan Tasikmalaya Poltekkes Tasikmalaya.pptx", "judul": "3Lzf2_INSTRUMEN PENELITIAN Penget Kader ttg stunting (2) - Prodi D-III Keperawatan Tasikmalaya Poltekkes Tasikmalaya", "peneliti": ["Tim Peneliti Poltekkes Kemenkes Tasikmalaya"], "jurusan": "Kebidanan", "skema": "Penelitian Terapan / Mandiri", "tkt": "TKT 3 - 5 (Validasi Prototipe)", "kategori_tkt": "", "hki": "Dalam Proses Pengajuan", "uji_lab": "Uji Coba Lapangan / Validasi Ahli", "kategori_inovasi": "Teknologi Tepat Guna & Simulator", "deskripsi": "", "keunggulan": "", "kontak_nama": "", "kontak_email": "", "kontak_raw": "", "image": "", "slug": "3lzf2-instrumen-penelitian-penget-kader-"}, {"id": "1Cl", "filename": "_zoeKcmwkUZqrjgoYx6l_MXAhXZKN_DRAFT PRESENTASI PEN MAN - Andri Gustiadi.pptx", "judul": "Literasi Gizi Digital dan Pola Penggunaan Suplemen Kesehatan pada Mahasiswa Kesehatan: Studi Cross-Sectional", "peneliti": ["Andri Gustiadi"], "jurusan": "Gizi", "skema": "Penelitian Terapan / Mandiri", "tkt": "TKT 3 - 4 (Uji Formulasi Laboratorium)", "kategori_tkt": "", "hki": "Dalam Proses Pengajuan", "uji_lab": "Ya (Uji Laboratorium / Formulasi)", "kategori_inovasi": "Pangan Fungsional & Gizi", "deskripsi": "", "keunggulan": "", "kontak_nama": "Andri Gustiadi", "kontak_email": "", "kontak_raw": "", "image": "1Cl_image5.png", "slug": "literasi-gizi-digital-dan-pola-penggunaa"}, {"id": "1DIfN0VXkQhKXOJziU9e0nWYe909s4kxk", "filename": "Hubungan Tingkat Keparahan Erosive Tooth Wear dengan Status - M fiqih Sabilillah.pptx", "judul": "Analisis Derajat Keparahan Erosive Tooth Wear dan Kebersihan Gigi pada Anak Disabilitas Intelektual", "peneliti": ["Dr. Muhammad Fiqih Sabilillah, M.Kes", "Dr. Hj. Nia Daniati, S.Si.T, M.Kes"], "jurusan": "Kesehatan Gigi", "skema": "Penelitian Mandiri", "tkt": "TKT 2 (Kajian Epidemiologi Klinis)", "kategori_tkt": "", "hki": "Hak Cipta (Proses)", "uji_lab": "Pemeriksaan Klinis BEWE & OHI-S", "kategori_inovasi": "Intervensi & Rekomendasi Klinis", "deskripsi": "", "keunggulan": "Menjadi dasar protokol khusus pemeliharaan kesehatan gigi bagi anak berkebutuhan khusus (SLB).", "kontak_nama": "M fiqih Sabilillah", "kontak_email": "", "kontak_raw": "", "image": "1DIfN0VXkQhKXOJziU9e0nWYe909s4kxk_image5.png", "slug": "analisis-derajat-keparahan-erosive-tooth"}, {"id": "1DV8tZhXdqZ3LP5nH2n6tg646WsW7eauG", "filename": "katalog - Ridwan Kustiawan.pptx", "judul": "Protokol Terapi Deep Breathing Exercise Terpandu untuk Menurunkan Skor Kecemasan Pasien Hipertensi", "peneliti": ["Ridwan Kustiawan, S.Kep., Ners., M.Kep"], "jurusan": "Keperawatan", "skema": "Penelitian Mandiri", "tkt": "TKT 3 (Uji Klinis Pre-Post Test)", "kategori_tkt": "", "hki": "Hak Cipta Terdaftar", "uji_lab": "Uji Pengukuran State-Trait Anxiety Inventory (STAI)", "kategori_inovasi": "Intervensi & Rekomendasi Klinis", "deskripsi": "", "keunggulan": "Relaksasi non-farmakologis mandiri yang merangsang saraf parasimpatis secara cepat dan terukur.", "kontak_nama": "Ridwan Kustiawan", "kontak_email": "", "kontak_raw": "", "image": "", "slug": "protokol-terapi-deep-breathing-exercise-"}, {"id": "1F36dxrrZttW", "filename": "ugAUjpNksdFSZpiM6DNZ_Desain Katalog Penelitian-SeGar+_Laila dkk_2026 - Laila Putri Suptiani.pptx", "judul": "Skema Penelitian: PKAPT TKT: TKT 2 Kategori indikator TKT: Perumusan Konsep Teknologi dan/atau Aplikasi Status HKI: Proses Uji Lab : Tidak", "peneliti": ["Laila Putri Suptiani, M.Keb.", "Yulia Herliani, SST., M.Keb.", "Nita Nurvita, SST., M.Keb.", "Angga Sugiarto, M.Kes.", "Suyanta, M.A"], "jurusan": "Kebidanan", "skema": "PKAPT", "tkt": "TKT T", "kategori_tkt": "Perumusan Konsep Teknologi dan/atau Aplikasi", "hki": "Dalam Proses Pengajuan", "uji_lab": "Tidak (Uji Lapangan Terbatas)", "kategori_inovasi": "Aplikasi & Sistem Digital", "deskripsi": "", "keunggulan": "Keunggulan SeGar+ terletak pada penggunaan platform yang lebih modern sehingga mudah dikembangkan, serta mengintegrasikan materi PPAM, edukasi Kekerasan Berbasis Gender (KBG), comic book digital, dan video edukasi dalam satu aplikasi berbasis Android dengan sistem multi-user. Aplikasi ini telah melalui validasi ahli materi dan ahli media sehingga memiliki kualitas isi dan tampilan yang layak sebagai media edukasi kesehatan reproduksi bagi remaja, orang tua, kader kesehatan, relawan, dan admin.", "kontak_nama": "Laila Putri Suptiani, M.Keb", "kontak_email": "Laila.putri@dosen.poltekkestasikmalaya.ac.id", "kontak_raw": "Laila Putri Suptiani, M.KebJurusan KebidananPoltekkes Kemenkes Tasikmalaya Laila.putri@dosen.poltekkestasikmalaya.ac.id", "image": "1F36dxrrZttW_image5.png", "slug": "skema-penelitian-pkapt-tkt-tkt-2-kategor"}, {"id": "1G9ln-7kPzkslWrlI5jzC41lhSZCV1EF", "filename": "_DESAIN KATALOG PENELITIAN Drg Anie_TIM 2026 - Rena Setiana Primawati.pptx", "judul": "Pocket Book kesehatan gigi dan Mulut bagi orang tua Tunarungu", "peneliti": ["Rena Setiana Primawati", "Anie Kristiani", "Anang, SSiT, MDSc"], "jurusan": "Kesehatan Gigi", "skema": "Penelitian Terapan Unggulan Pergutuan Tinggi", "tkt": "TKT 4", "kategori_tkt": "Pengukuran Kognitif orang tua tunarungu, keterampilan menyikat gigi dan status kebersihan gigi dan mulut pada anak tunarungu sebelum dan sesudah diberikan intervensi menggunakan Pocket Book", "hki": "Dalam Proses Pengajuan", "uji_lab": "Tidak (Uji Lapangan Terbatas)", "kategori_inovasi": "Buku, Modul & Media Edukasi", "deskripsi": "Pocket Book Kesehatan Gigi berbasis digital dikembangkan oleh peneliti yang berisi materi tentang pemeliharaan kesehatan gigi dan mulut pada anak tunarungu yang tujuan akhirnya adalah meningkatkan derajat kesehatan pada penderita diabetes mellitus. Keunggulan : Metode promosi kesehatan gigi saat ini dituntut untuk lebih inovatif dan menarik. Pengembangan Pocket book berbasis digital merupakan sarana yang tepat untuk meningkatkan pengetahuan pada orang tua anak tunarungu sehingga pada akhirnya anak tunarungu dapat meningkat keterampilan menyikat gigi dan status kebersihan gigi dan mulutnya.", "keunggulan": "Deskripsi singkat produk]:Pocket Book Kesehatan Gigi berbasis digital dikembangkan oleh peneliti yang berisi materi tentang pemeliharaan kesehatan gigi dan mulut pada anak tunarungu yang tujuan akhirnya adalah meningkatkan derajat kesehatan pada penderita diabetes mellitus. Keunggulan : Metode promosi kesehatan gigi saat ini dituntut untuk lebih inovatif dan menarik. Pengembangan Pocket book berbasis digital merupakan sarana yang tepat untuk meningkatkan pengetahuan pada orang tua anak tunarungu sehingga pada akhirnya anak tunarungu dapat meningkat keterampilan menyikat gigi dan status kebersihan gigi dan mulutnya.", "kontak_nama": "Rena Setiana Primawati", "kontak_email": "", "kontak_raw": "Rena Setiana Primawati [Jurusan Kesehatan Gigi]Poltekkes Kemenkes Tasikmalaya [rena,setiana.p@ dosen.poltekkestasikmalaya.ac.id", "image": "1G9ln-7kPzkslWrlI5jzC41lhSZCV1EF_image5.png", "slug": "pocket-book-kesehatan-gigi-dan-mulut-bag"}, {"id": "1HGtCsqqXIzyMOljOfu25kkJGw7", "filename": "FJHaf_Desain Katalog Penelitian Aplikasi CERIA - SANTI YULIASTUTI.pptx", "judul": "Kontak: Santi Yuliastuti, S.ST., M.Tr.Keb.Program Studi Sarjana Terapan KebidananPoltekkes Kemenkes TasikmalayaEmail: santiya33@gmail.com", "peneliti": ["Santi Yuliastuti, S.ST., M.Tr.Keb", "Wiwin Mintarsih Purnamasari , S.SiT, M.Kes", "Ir. Ir. Khairiyah Prapahlawanti , SST, M.Keb", "Sri Handayani, S.Pd., M.KM"], "jurusan": "Kebidanan", "skema": "PKAPT", "tkt": "TKT 2-3", "kategori_tkt": "Riset dasar", "hki": "Dalam Proses Pengajuan", "uji_lab": "Tidak (Uji Lapangan Terbatas)", "kategori_inovasi": "Aplikasi & Sistem Digital", "deskripsi": "CERIA (Cerdas Merencanakan Kehamilan) merupakan aplikasi edukasi berbasis Android yang dikembangkan untuk meningkatkan pengetahuan dan kesiapan calon pengantin dalam merencanakan kehamilan sehat. Aplikasi ini menyediakan materi edukasi mengenai kesehatan reproduksi, persiapan kehamilan sehat, kondisi kesehatan yang perlu diwaspadai, persiapan sebelum hamil, pengaturan kehamilan, serta pesan-pesan penting kesehatan reproduksi. Selain sebagai media edukasi, aplikasi CERIA dilengkapi fitur skrining kesehatan mandiri, reminder kesehatan, dan konsultasi bidan untuk membantu pengguna mempersiapkan kehamilan secara optimal.", "keunggulan": "CERIA (Cerdas Merencanakan Kehamilan) merupakan aplikasi edukasi berbasis Android yang dikembangkan deengan menyediakan materi edukasi serta pesan-pesan penting kesehatan reproduksi. Selain sebagai media edukasi, aplikasi CERIA dilengkapi fitur skrining kesehatan mandiri, reminder kesehatan, dan konsultasi bidan untuk membantu pengguna mempersiapkan kehamilan secara optimal.", "kontak_nama": "Santi Yuliastuti, S.ST., M.Tr.Keb.Program Studi Sarjana Terapan Kebidanan", "kontak_email": "santiya33@gmail.com", "kontak_raw": "Santi Yuliastuti, S.ST., M.Tr.Keb.Program Studi Sarjana Terapan KebidananPoltekkes Kemenkes TasikmalayaEmail: santiya33@gmail.com", "image": "1HGtCsqqXIzyMOljOfu25kkJGw7_image5.png", "slug": "kontak-santi-yuliastuti-s-st-m-tr-keb-pr"}, {"id": "1HTNaBXYQEpr6PRvFziorLKJGRhFwvHzN", "filename": "DESAIN KATALOG PENELITIAN CULIA_TIM 2026 - Winda Fratiwi.pptx", "judul": "Buku Saku Digital Manifestasi Penyakit Sistemik pada Rongga Mulut: 'Senyum Sehat Ibu - Awal Kesehatan Buah Hati'", "peneliti": ["Drg. Culia Rahayu", "Drg. Yayah Sopianah, M.Kes"], "jurusan": "Kesehatan Gigi", "skema": "Penelitian Mandiri", "tkt": "TKT 2 (Formulasi Media)", "kategori_tkt": "Pengukuran pengetahuan dan keterampilan sebelum dan sesudah Promosi Kesehatan Gigi.", "hki": "Hak Cipta (Proses)", "uji_lab": "Validasi Pakar Periodonsia", "kategori_inovasi": "Buku, Modul & Media Edukasi", "deskripsi": "Buku saku berbasis digital dikembangkan oleh peneliti yang berisi tentang manifestasi penyakit pada rongga mulut, perawatan dan pemeliharaan kesehatan gigi dan mulut pada ibu hamil, sehingga tujuan akhirnya adalah meningkatkan derajat kesehatan pada ibu hamil. Keunggulan : Di era kemajuan teknologi informasi saat ini, metode promosi kesehatan gigi dituntut untuk lebih inovatif dan menarik. Pengembangan buku saku digital merupakan sarana yang tepat untuk meningkatkan pengetahuan, sikap dan perilaku kesehatan gigi dan mulut, karena ibu hamil rata-rata memiliki smartphone", "keunggulan": "Deteksi dini lesi mulut yang berkorelasi dengan penyakit sistemik pada ibu hamil.", "kontak_nama": "Culia Rahayu", "kontak_email": "rahayuculia67@gmail.com", "kontak_raw": "Culia Rahayu] [Jurusan Kesehatan Gigi]Poltekkes Kemenkes Tasikmalaya [rahayuculia67@gmail.com", "image": "1HTNaBXYQEpr6PRvFziorLKJGRhFwvHzN_image5.png", "slug": "buku-saku-digital-manifestasi-penyakit-s"}, {"id": "1JM7TRnpVE8v0eg6WyNLvDfD", "filename": "QvXFvqu8_Desain Katalog Penelitian Nuri - Nuri Handayani.pptx", "judul": "Skema Penelitian: PKAPT TKT : 3 Kategori indikator TKT: Aplikasi Status HKI: [belum terdaftar] Uji Lab : [Tidak", "peneliti": ["Nuri Handayani", "Imat Rochimat", "Rini Handayani", "Berwi Fazri Pamudi"], "jurusan": "Farmasi", "skema": "PKAPT", "tkt": "TKT 3", "kategori_tkt": "Aplikasi", "hki": "Belum Terdaftar", "uji_lab": "Tidak (Uji Lapangan Terbatas)", "kategori_inovasi": "Aplikasi & Sistem Digital", "deskripsi": "SIPHABEN (Sistem Informasi Pelayanan Kefarmasian dalam Situasi Bencana) merupakan aplikasi berbasis website yang dikembangkan untuk mendukung pelaksanaan pelayanan kefarmasian pada situasi bencana secara terintegrasi. SIPHABEN dirancang untuk memfasilitasi pengelolaan obat mulai dari tahap perencanaan, pengadaan, penerimaan, penyimpanan, pendistribusian, pengendalian, pencatatan, pelaporan, hingga dokumentasi sesuai dengan model pelayanan kefarmasian yang telah dikembangkan. Sistem ini diharapkan dapat meningkatkan efektivitas, efisiensi, ketertelusuran data, dan kualitas pengambilan keputusan dalam pengelolaan logistik farmasi selama penanggulangan bencana, serta menjadi media pendukung bagi tenaga kefarmasian dalam memberikan pelayanan yang cepat, tepat, dan terdokumentasi dengan baik.", "keunggulan": "SIPHABEN merupakan sistem informasi berbasis website yang dikembangkan khusus untuk mendukung pelayanan kefarmasian pada situasi bencana dengan mengintegrasikan seluruh tahapan pengelolaan obat, mulai dari perencanaan hingga dokumentasi. Sistem ini membantu meningkatkan efisiensi, akurasi, dan ketertelusuran data dalam pengelolaan logistik farmasi sehingga mendukung pengambilan keputusan yang lebih cepat dan tepat. SIPHABEN dikembangkan berdasarkan model pelayanan kefarmasian hasil penelitian dan dirancang sesuai kebutuhan tenaga kefarmasian dalam penanggulangan bencana di Indonesia.", "kontak_nama": "Nuri Handayani", "kontak_email": "Farmasinuri.handayani@dosen.poltekkestasikmalaya.ac.id", "kontak_raw": "Nuri Handayani Jurusan Farmasinuri.handayani@dosen.poltekkestasikmalaya.ac.id", "image": "1JM7TRnpVE8v0eg6WyNLvDfD_image5.png", "slug": "skema-penelitian-pkapt-tkt-3-kategori-in"}, {"id": "1K2gfveWJuM1ML2kVPpO6jSZChMeJukxh", "filename": "Katalog Penelitian - Dudi Hartono.pptx", "judul": "Modul Intervensi Manajemen Perawatan Diri Pasien Pasca Bencana Berbasis Komunitas", "peneliti": ["Dudi Hartono, Ners., M.Kep", "Heri Djamiatul Maulana, M.Kep"], "jurusan": "Keperawatan", "skema": "Penelitian Unggulan Perguruan Tinggi", "tkt": "TKT 4 (Penerapan Komunitas)", "kategori_tkt": "", "hki": "Hak Cipta Terdaftar", "uji_lab": "Uji Efektivitas Self-Care Index", "kategori_inovasi": "Buku, Modul & Media Edukasi", "deskripsi": "Modul yang dihasilkan merupakan wujud dari Kepmenkes RI Nomor HK.01.07/Menkes/4634/2021 tentang Tata Laksana Hipertensi Dewasa, Isi modul merupakan hasil dari identifikasi kebutuhani informasi perawatan diri yang harus dilakukan oleh pasien hipertensi berdasarkan perspektif pemegang program PTM di Puskesmas, Pasien dan Keluarga. Dengan adanya modul diharapkan pasien hipertensi memiliki pedoman dalam hal cek tekanan darah rutin, mengendalikan perilaku beresiko, peningkatan konsumsi sayur dan buah, menjaga berat badan ideal, aktivitas fisik teratur.", "keunggulan": "Membekali perawat dan relawan kesehatan dalam mendampingi pemulihan kesehatan penyintas bencana.", "kontak_nama": "Dudi Hartono Keperawatan", "kontak_email": "", "kontak_raw": "Dudi Hartono] [Keperawatan]Poltekkes Kemenkes Tasikmalaya [email@domain", "image": "", "slug": "modul-intervensi-manajemen-perawatan-dir"}, {"id": "1Ka4KuE8leUjGPvIeZMhY0KwXdZRRN", "filename": "VP_Desain Katalog Penelitian EMMa 2026 - Lina Rismayani.pptx", "judul": "Produk hasil penelitian berupa prototipe intervensi pangan berbasis Musa paradisiaca-L atau pisang Ambon kuning yang dikembangkan sebagai bahan pangan", "peneliti": ["Dr. drg. Emma Kamelia, M.Biomed", "Lina Rismayani, S.ST., M.Kes", "Dr. Muhammad Fiqih Sabilillah, S.ST., M.Kes", "Winda Fratiwi, S.ST., M.MKes"], "jurusan": "Kesehatan Gigi", "skema": "PTUPT", "tkt": "TKT 4.", "kategori_tkt": "Validasi komponen dan prototipe produk intervensi pangan berbasis Musa paradisiaca-L pada lingkungan laboratorium dan lingkungan pengguna terbatas. Produk telah melalui tahapan pemberian kepada kelompok sasaran, pemeriksaan pH dan laju alir saliva, analisis hasil, serta evaluasi awal bersama mitra penelitian.", "hki": "Dalam Proses Pengajuan", "uji_lab": "Tidak (Uji Lapangan Terbatas)", "kategori_inovasi": "Pangan Fungsional & Gizi", "deskripsi": "Produk hasil penelitian berupa prototipe intervensi pangan berbasis Musa paradisiaca-L atau pisang Ambon kuning yang dikembangkan sebagai bahan pangan pendukung bagi anak tunagrahita. Produk diberikan secara terukur sesuai kelompok intervensi untuk mengevaluasi perubahan profil biologis dan kesehatan rongga mulut, khususnya kadar BDNF, short-term memory, pH saliva, dan laju alir saliva.", "keunggulan": "Menggunakan bahan pangan lokal berupa pisang Ambon kuning yang mudah diperoleh dan relatif mudah diterima oleh anak. Dikembangkan berdasarkan hasil penelitian pada kelompok sasaran anak tunagrahita di lingkungan sekolah luar biasa. Memiliki prosedur pemberian yang sederhana dan dapat dilakukan dengan pendampingan guru atau orang tua. Dievaluasi menggunakan indikator objektif berupa pH saliva dan laju alir saliva serta didukung pemeriksaan BDNF dan short-term memory. Berpotensi dikembangkan menjadi inovasi bahan makanan berbasis Musa paradisiaca-L", "kontak_nama": "Emma Kamelia", "kontak_email": "emma.kamelia@dosen.poltekkestasikmlaya.ac.id", "kontak_raw": "Emma Kamelia] [Jurusan Kesehatan Gigi]Poltekkes Kemenkes Tasikmalaya [emma.kamelia@dosen.poltekkestasikmlaya.ac.id", "image": "1Ka4KuE8leUjGPvIeZMhY0KwXdZRRN_image5.png", "slug": "produk-hasil-penelitian-berupa-prototipe"}, {"id": "1LVo5RhRdfv9P9go6rGLzGoCLLplwvDCS", "filename": "Desain Katalog Penelitian - NELI NURLINA.pptx", "judul": "Modifikasi Permainan Ludo Edukatif sebagai Media Pendidikan Kesehatan Reproduksi Remaja", "peneliti": ["Neli Nurlina, SST, M.Keb", "Pepi Hapitria, SST, M.Keb"], "jurusan": "Kebidanan", "skema": "Penelitian Mandiri", "tkt": "TKT 3 (Uji Lapangan Terbatas)", "kategori_tkt": "Penelitian Desentralisasi", "hki": "Hak Cipta Terdaftar", "uji_lab": "Uji Efektivitas Pengetahuan Remaja", "kategori_inovasi": "Buku, Modul & Media Edukasi", "deskripsi": "Media edukasi modifikasi permainan ludo dengan sasarannya adalah orang tua sebagai upaya pencegahan kekerasan seksual pada anak memuat pesan/informasi bukan hanya tentang pencegahan kekerasan seksual pada anak, namun dilengkapi dengan perkembangan anak. Media edukasi tersebut dilengkapi juga dengan alat peraga atraktif sehingga informasi yang diterima oleh orang tua lebih komprehensif dan menarik", "keunggulan": "Media bermain edukatif kelompok yang efektif mengatasi ketabuan diskusi kesehatan reproduksi pada remaja.", "kontak_nama": "Neli Nurlina", "kontak_email": "neli.Nurlina@dosen.poltekkestasikmalaya", "kontak_raw": "Neli Nurlina] [Jurusan Kebidanan]Poltekkes Kemenkes Tasikmalaya [neli.Nurlina@dosen.poltekkestasikmalaya .ac.id", "image": "1LVo5RhRdfv9P9go6rGLzGoCLLplwvDCS_image5.png", "slug": "modifikasi-permainan-ludo-edukatif-sebag"}, {"id": "1Lk8FHuQh5TOBB4M", "filename": "0hbMM2U66HMorzGp_Katalog penelitian - AYU RAHAYU LESTARI.pptx", "judul": "PENGEMBANGAN SISTEM PEMINJAMAN ALAT DAN BAHAN LABORATORIUM TERPADU POLTEKKES KEMENKES TASIKMALAYA", "peneliti": ["Ayu Rahayu Lestari AMd. RMIK., SKM., M.MKes", "Rizka Ajeng Trikusumah A. Mddst"], "jurusan": "Rekam Medis & Informasi Kesehatan", "skema": "Penelitian Pemula", "tkt": "TKT 2", "kategori_tkt": "jurnal nasional bereputasi", "hki": "Belum Terdaftar", "uji_lab": "Tidak (Uji Lapangan Terbatas)", "kategori_inovasi": "Aplikasi & Sistem Digital", "deskripsi": "Produk penelitian yang dikembangkan berupa Website Sistem Peminjaman Alat dan Bahan Laboratorium Terpadu berbasis web untuk mendukung pengelolaan peminjaman alat dan bahan laboratorium di Poltekkes Kemenkes Tasikmalaya. Sistem ini dirancang untuk mengintegrasikan proses peminjaman, pengembalian, monitoring stok, dan pelaporan dalam satu platform yang dapat digunakan oleh Kepala Laboratorium, Pranata Laboratorium Pendidikan (PLP), dosen, dan mahasiswa. Pada tahap laporan kemajuan ini, produk masih dalam proses pengembangan berdasarkan hasil analisis kebutuhan dan perancangan sistem yang telah dilakukan.", "keunggulan": "Keunggulan produk ini adalah mengintegrasikan proses peminjaman laboratorium, menyediakan informasi stok secara real-time, dan menghasilkan laporan secara otomatis.", "kontak_nama": "Ayu Rahayu Lestari AMd. RMIK., SKM., M.MKesDIII RMIK", "kontak_email": "", "kontak_raw": "Ayu Rahayu Lestari AMd. RMIK., SKM., M.MKesDIII RMIKPoltekkes Kemenkes Tasikmalaya [email@domain", "image": "1Lk8FHuQh5TOBB4M_image5.png", "slug": "pengembangan-sistem-peminjaman-alat-dan-"}, {"id": "1MUI9QfvjWztk5iKZ4uhge9TJ1LjYEHWC", "filename": "Desain Katalog Penelitian San Quick - Santi Wahyuni.pptx", "judul": "San Quick: Sistem Informasi Terintegrasi Deteksi Dini Risiko Komplikasi Kehamilan", "peneliti": ["Santi Wahyuni, SST., M.Keb", "Tim Peneliti Kebidanan"], "jurusan": "Kebidanan", "skema": "PTUPT (Penelitian Terapan Unggulan Perguruan Tinggi)", "tkt": "TKT 4 (Uji Lingkungan Nyata Terbatas)", "kategori_tkt": "Validasi komponen /pengembangan aplikasi sistem informasi terintegrasi pendeteksi gerakan janin untuk memantau kesejahteraan janin oleh ibu hamil dan fasilitas pelayanan kesehatan", "hki": "Hak Cipta Terdaftar", "uji_lab": "Uji Validitas Algoritma Skrining", "kategori_inovasi": "Aplikasi Digital & EWS", "deskripsi": "SAN QUICK adalah aplikasi Android terintegrasi untuk memantau gerakan janin secara real-time antara ibu hamil dan bidan puskesmas. Menggunakan metode Cardiff (Count to Ten) berbasis sensor chip pada smartphone, ibu hamil dapat menghitung gerakan janin secara mandiri di rumah. Data otomatis tersimpan di database fasyankes untuk pemantauan jarak jauh tanpa menunggu jadwal kunjungan rutin. Aplikasi ini dilengkapi 6 fitur utama: Dashboard, Hitung Gerakan, Riwayat Statistik, Artikel Kesehatan, Messenger, dan Profil Pengguna. Keunggulan: Pemantauan Real-Time: data hitungan gerakan janin langsung terkirim ke dashboard bidan PKM Sistem Peringatan Dini: Notifikasi alarm otomatis Konsultasi Dua Arah: Fitur Messenger internal Akurasi Multidisiplin: dr. Sp.OG Fetomaternal, pakar IT, dan ahli elektronika Edukasi Terintegrasi: buku panduan, artikel kesehatan dan video animasi", "keunggulan": "Deteksi cepat parameter tanda bahaya kehamilan secara real-time yang langsung terhubung ke bidan koordinator.", "kontak_nama": "Skema Penelitian: PTUPT TKT: Level 4 Kategori indikator TKT: Validasi komponen /pengembangan aplikasi sistem informasi terintegrasi pendeteksi gerakan janin untuk memantau kesejahteraan janin oleh ibu hamil dan fasilitas pelayanan kesehatan Status HKI: buku panduan Terbit, video penggunaan dan hak produk sedang dalam lini masa pengajuan Uji Lab: Ya melalui tahap validasi komponen teknis/elektronika dan uji fungsionalitas oleh pakar IT serta Elektronika Instrumentasi Kendali Tim Peneliti: 1. Santi Wahyuni, S.Kp, M.Kep, Sp.Mat2. Nurasih, SST, M.Keb 3. Dr. Hj. Yeni Fitrianingsih, SST, M.Kes Kontak: Santi Wahyuni, S.Kp, M.Kep, Sp.Mat Prodi Sarjana Terapan Keperawatan Cirebon", "kontak_email": "santiwahyuni@dosen.poltekkestasikmalaya.ac.id", "kontak_raw": "Skema Penelitian: PTUPT TKT: Level 4 Kategori indikator TKT: Validasi komponen /pengembangan aplikasi sistem informasi terintegrasi pendeteksi gerakan janin untuk memantau kesejahteraan janin oleh ibu hamil dan fasilitas pelayanan kesehatan Status HKI: buku panduan [Terbit], video penggunaan dan hak produk sedang dalam lini masa pengajuan Uji Lab: [Ya] melalui tahap validasi komponen teknis/elektronika dan uji fungsionalitas oleh pakar IT serta Elektronika Instrumentasi Kendali Tim Peneliti: 1. Santi Wahyuni, S.Kp, M.Kep, Sp.Mat2. Nurasih, SST, M.Keb 3. Dr. Hj. Yeni Fitrianingsih, SST, M.Kes Kontak: Santi Wahyuni, S.Kp, M.Kep, Sp.Mat Prodi Sarjana Terapan Keperawatan CirebonPoltekkes Kemenkes Tasikmalaya santiwahyuni@dosen.poltekkestasikmalaya.ac.id", "image": "1MUI9QfvjWztk5iKZ4uhge9TJ1LjYEHWC_image6.png", "slug": "san-quick-sistem-informasi-terintegrasi-"}, {"id": "1NWJf6o1HHMpGwfHEVmrwmfvBMLo0gMva", "filename": "Desain Katalog Penelitian Alat Pijat Perineum Elektrik - Dita Eka Mardiani.pptx", "judul": "Alat Pijat Perineum Elektrik Portabel untuk Mencegah Ruptur Perineum saat Persalinan", "peneliti": ["Dita Eka Mardiani, SST, M.Keb", "Helmi Diana, SST, M.Keb"], "jurusan": "Kebidanan", "skema": "Penelitian Terapan (PTUPT)", "tkt": "TKT 4 (Prototipe Ergonomis Siap Uji)", "kategori_tkt": "Pembuktian konsep (Proof of Concept) secara analitis dan eksperimental.", "hki": "Paten Sederhana (Dalam Proses)", "uji_lab": "Uji Ergonomi & Keamanan Material Medis", "kategori_inovasi": "Teknologi Tepat Guna & Simulator", "deskripsi": "", "keunggulan": "Desain ergonomis dengan getaran mikro terkontrol yang memudahkan ibu hamil melakukan pijat perineum mandiri secara aman.", "kontak_nama": "Dita Eka Mardiani, SST, M.Keb", "kontak_email": "Dita.eka.m@dosen.poltekkestasikmalaya.ac.id", "kontak_raw": "Dita Eka Mardiani, SST, M.KebJurusan KebidananPoltekkes Kemenkes Tasikmalaya Dita.eka.m@dosen.poltekkestasikmalaya.ac.id", "image": "1NWJf6o1HHMpGwfHEVmrwmfvBMLo0gMva_image5.png", "slug": "alat-pijat-perineum-elektrik-portabel-un"}, {"id": "1PDt54", "filename": "S5baWOInieUYhNkbE0xkq4uO7u_Asep Kuswandi_Template Desain Katalog Penelitian Mandiri FIX - Asep Kuswandi.pptx", "judul": "Analisis faktor risiko yang berhubungan dengan kejadian diabetes melitus di Kota Tasikmalaya", "peneliti": ["Dr. Asep Kuswandi, M.Kep., Ns., Sp.Kep.MB.", "Kusmiyati, S.Kp., M.Kes.", "Azmy Khuzaimah, S.Tr.Kep.", "Galang Adi Prayoga, S.Tr.Kep.", "Silvy Khaerunnisa, S.Tr.Kep."], "jurusan": "Keperawatan", "skema": "Penelitian Pemula (PP", "tkt": "TKT 2-3 (Target", "kategori_tkt": "Formulasi konsep dan pembuktian awal hubungan faktor risiko diabetes melitus berbasis data lapangan.", "hki": "Tercatat / Terdaftar (Hak Cipta / Paten)", "uji_lab": "Tidak (Uji Lapangan Terbatas)", "kategori_inovasi": "Pangan Fungsional & Gizi", "deskripsi": "Penelitian ini bertujuan mengidentifikasi faktor-faktor risiko yang berhubungan dengan kejadian diabetes melitus pada masyarakat Kota Tasikmalaya melalui pendekatan observasional analitik dengan desain cross-sectional. Faktor risiko yang dianalisis meliputi usia, jenis kelamin, riwayat keluarga, aktivitas fisik, pola makan, kebiasaan merokok, tingkat stres, dan status obesitas. Hasil penelitian diharapkan menghasilkan rekomendasi berbasis bukti (evidence-based recommendation) yang dapat dimanfaatkan oleh Dinas Kesehatan dan puskesmas dalam penyusunan program promotif dan preventif pengendalian diabetes melitus.", "keunggulan": "Mengkaji berbagai faktor risiko diabetes melitus secara komprehensif dalam satu penelitian, meliputi faktor sosiodemografi, riwayat keluarga, gaya hidup, dan status kesehatan. Dilaksanakan pada masyarakat di wilayah kerja 22 puskesmas Kota Tasikmalaya sehingga memberikan gambaran kondisi yang lebih representatif. Menggunakan pendekatan analisis multivariat untuk mengidentifikasi faktor risiko dominan yang berhubungan dengan kejadian diabetes melitus. Menghasilkan rekomendasi berbasis bukti (evidence-based recommendation) yang dapat dimanfaatkan dalam pengembangan program pencegahan diabetes melitus di tingkat pelayanan kesehatan primer.", "kontak_nama": "Asep Kuswandi", "kontak_email": "asep.kuswandi@dosen.poltekkestasikmalaya.ac.id", "kontak_raw": "Asep KuswandiJurusan KeperawatanPoltekkes Kemenkes Tasikmalaya asep.kuswandi@dosen.poltekkestasikmalaya.ac.id", "image": "1PDt54_image5.png", "slug": "analisis-faktor-risiko-yang-berhubungan-"}, {"id": "1Ri-ZYREMZmF3bSJ", "filename": "hPWcq8oT7tF2KjBs_Katalog Luaran Buku Saku DSME DM - Kusmiyati Kusmiyati.pptx", "judul": "Pengaruh Diabetes Self management (DSME) melalui Buku Saku Terhadap kepatuhan manajemen perawatan diri pasien DM Type 2 di Puskesmas Kahuripan Kota Tasikmalaya", "peneliti": ["Kusmiyati, SKp.MKes", "Tetik Nurhayati, S.Kep.,Ners.,Mkep", "Novi Enis Rosulina,. Mkep.Ns., Sp.Kep.An"], "jurusan": "Keperawatan", "skema": "PDUPT", "tkt": "TKT T", "kategori_tkt": "", "hki": "Dalam Proses Pengajuan", "uji_lab": "Tidak (Uji Lapangan Terbatas)", "kategori_inovasi": "Teknologi Tepat Guna & Simulator", "deskripsi": "Buku saku DSME DM merupakan media edukasi praktis yang dirancang untuk membantu pasien diabetes melitus dalam melakukan perawatan diri secara mandiri. Materi meliputi pengaturan diet, aktivitas fisik, kepatuhan minum obat, pemantauan glukosa darah, dan perawatan kaki. Buku disusun dengan bahasa sederhana dan ilustrasi yang mudah dipahami sehingga dapat meningkatkan pengetahuan, kepatuhan, dan kemampuan self-management pasien.", "keunggulan": "Peralatan dan sistem telah teridentifikasi melalui kajian literatur dan bukti empiris. Desain serta model konseptual teknologi telah disusun berdasarkan landasan teori. Analisis awal menunjukkan komponen dan fungsi utama teknologi layak dikembangkan ke tahap berikutnya.", "kontak_nama": "Kusmiyati, SKp.MKes", "kontak_email": "kusmiyatimunir@gmail.com", "kontak_raw": "Kusmiyati, SKp.MKesJurusan KeperawatanPoltekkes Kemenkes Tasikmalaya kusmiyatimunir@gmail.com", "image": "1Ri-ZYREMZmF3bSJ_image5.png", "slug": "pengaruh-diabetes-self-management-dsme-m"}, {"id": "1S-YXdwqMSBivI4Ch8wWdaQJvsPyT9rhb", "filename": "Desain Katalog Penelitian - Ayu Yuliani S..pptx", "judul": "Spalek Bermusik: Inovasi Stabilisasi Ekstremitas Atas Anak Berpadu Terapi Audio Pediatrik", "peneliti": ["Ayu Yuliani Sekriptini, S.Kep., Ners., M.Kep", "Zaitun, S.Kep., Ners"], "jurusan": "Keperawatan", "skema": "Penelitian Terapan Unggulan", "tkt": "TKT 4 (Prototipe Tervalidasi Pasien)", "kategori_tkt": "Pembuktian konsep (Proof of Concept) melalui pengembangan dan uji fungsi prototype laboratorium", "hki": "Paten Sederhana / Desain Industri (Proses)", "uji_lab": "Uji Penurunan Skor Nyeri Wong-Baker & Heart Rate", "kategori_inovasi": "Teknologi Tepat Guna & Simulator", "deskripsi": "Spalek Bermusik merupakan inovasi alat bantu stabilisasi ekstremitas atas yang dipadukan dengan sistem audio digital sebagai media distraksi untuk anak selama prosedur pemasangan infus intravena. Produk ini dirancang untuk membantu mempertahankan posisi lengan anak agar tetap stabil sekaligus mengurangi rasa nyeri, kecemasan, dan ketidaknyamanan melalui pemutaran musik yang dapat dipilih sesuai kebutuhan pengguna.", "keunggulan": "Mengurangi trauma pemasangan infus pada anak dengan mengintegrasikan modul suara musik relaksasi langsung di alat spalek.", "kontak_nama": "Ayu Yuliani Sekriptini Keperawatan", "kontak_email": "", "kontak_raw": "Ayu Yuliani Sekriptini] [Keperawatan]Poltekkes Kemenkes Tasikmalaya [email@domain", "image": "1S-YXdwqMSBivI4Ch8wWdaQJvsPyT9rhb_image5.jpeg", "slug": "spalek-bermusik-inovasi-stabilisasi-ekst"}, {"id": "1S0qL", "filename": "fppj_aq0NCDzDMt_M20ISUYzEML_Desain Katalog Penelitian Mandiri 2026 - Yeni Fitrianingsih.pptx", "judul": "Analisis Pasca Pembelajaran CoC digital : Studi Analitik Manfaat Dan Kepuasan Mahasiswa Terhadap Kualitas Interaksi Bidan- Pasien", "peneliti": ["Dr Yeni Fitrianingsih,SST,MKes", "Herni Kurnia,SST,MKeb", "Dr. Ida Sugiarti, S.Kep, Ners, MH.Kes,"], "jurusan": "Kebidanan", "skema": "Mandiri", "tkt": "TKT 5", "kategori_tkt": "Validasi awal efektivitas dan manfaat aplikasi CoC Mobile sebagai platform digital dalam pembelajaran kebidanan dan penerapan Continuity of Care.", "hki": "Dalam Proses Pengajuan", "uji_lab": "Uji Coba Lapangan / Validasi Ahli", "kategori_inovasi": "Aplikasi & Sistem Digital", "deskripsi": "CoC Mobile adalah aplikasi mobile health (mHealth) yang dikembangkan sebagai media pembelajaran dan pendukung penerapan Continuity of Care dalam pendidikan kebidanan. Aplikasi ini membantu mahasiswa memantau dan mendokumentasikan asuhan ibu dan bayi secara berkesinambungan, terintegrasi, dan berbasis teknologi digital.", "keunggulan": "CoC Mobile merupakan platform mobile health (mHealth) yang dirancang sebagai media pembelajaran dan pendukung penerapan konsep Continuity of Care (CoC) dalam pendidikan kebidanan.", "kontak_nama": "Dr Yeni Fitrianingsih,SST,MKesSTR Kebidanan Cirebon", "kontak_email": "", "kontak_raw": "Dr Yeni Fitrianingsih,SST,MKesSTR Kebidanan Cirebon Jurusan KebidananPoltekkes Kemenkes Tasikmalaya Email : yeni.fitrianingsih@dosen .poltekkestasikmalaya.ac.id", "image": "1S0qL_image5.png", "slug": "analisis-pasca-pembelajaran-coc-digital-"}, {"id": "1SjDKcYwiFe5rNeL", "filename": "sbQgCYQvisqtwfP2_Katalog Kursi ESA - Meti Widiya lestari.pptx", "judul": "Kursi ESA.", "peneliti": ["Dr. Meti Widiya Lestari, SST, M.Keb", "Dr. Atit Tajmiati, S.Kep Ners, MPd", "Dr. Dini Mariani, S.Kep, Ners M.Kep", "Dr Siti Badriah, S.Kep, Ners, M.Kep., Sp.Kep.Kom", "Wiwin Mintarsih P, S.SiT, M.Kes", "Nunung Mulyani, APP., M.Kes", "Lia Nurcahyani, SST, MPH", "Dita Eka Mardiani, SST, M.Keb", "Mohamad Sofie, ST, MT"], "jurusan": "Kebidanan", "skema": "KRUPT", "tkt": "TKT 9", "kategori_tkt": "Teknologi telah teruji dan dapat diterapkan pada kondisi atau lingkungan sebenarnya", "hki": "Dalam Proses Pengajuan", "uji_lab": "Ya (Teruji di Laboratorium)", "kategori_inovasi": "Teknologi Tepat Guna & Simulator", "deskripsi": "Kursi ESA Adalah kursi yang dirancang untuk ibu bersalin agar persalinan lebih aman dan nyaman serta memudahka penolong dalam mmbantu persalinan", "keunggulan": "Dapat dilipat dan dibawa dengan mudah oleh penolong persalinan Ibu dapat bersalin dengan aman dan nyaman walaupun berada di tempat yang terdampak bencana Dilengkapi dengan fitur tiang infus, penyangga kaki untuk pemasangan IUD, dan kotak peralatan Material dibuat lebih ringan dengan fungsi yang sama, bahan stainless steel, kekuatan dan daya tahan mampu menopang sampai 150 kg, dielangkapi lockable gas springs agar dapat naik turun secara otomatis", "kontak_nama": "Meti Widiya Lestari Kebidanan", "kontak_email": "meti.widiya.l@dosen.poltekkestasikmalaya.ac.id", "kontak_raw": "Meti Widiya Lestari] [Kebidanan]Poltekkes Kemenkes Tasikmalaya [meti.widiya.l@dosen.poltekkestasikmalaya.ac.id", "image": "1SjDKcYwiFe5rNeL_image5.png", "slug": "kursi-esa"}, {"id": "1TTZ4J0Ww2GeKO5M4m7QRaJfM6o-rsFJj", "filename": "Desain Katalog Penelitian Mandiri (Lia Nurcahyani) - Lia Nur Cahyani.pptx", "judul": "Aplikasi ABPK ber-KB Mobile: Alat Bantu Pengambilan Keputusan Kontrasepsi Berbasis Android", "peneliti": ["Lia Nurcahyani, SST, MPH", "Bdn. Dyah Widiyastuti, SST, M.Keb"], "jurusan": "Kebidanan", "skema": "Penelitian Mandiri", "tkt": "TKT 3 (Prototipe Aplikasi)", "kategori_tkt": "1-3.", "hki": "Hak Cipta (Proses)", "uji_lab": "Uji Kompatibilitas Sistem", "kategori_inovasi": "Aplikasi Digital & EWS", "deskripsi": "Aplikasi ABPK ber KB ini merupakan media yang digunakan oleh Bidan dalam meberikan konseling KB. Produk ini merupakan luaran dari Penelitian Terapan Unggulan Perguruan Tinggi (PTUPT) tahun 2023-2024. Pada penelitian sekarang akan diukur implementation outcome pengguunaan Aplikasi ABPK ber KB", "keunggulan": "Mempermudah bidan dan calon akseptor memilih alat kontrasepsi yang paling sesuai dengan profil klinis dan riwayat kesehatan.", "kontak_nama": "Nama Lengkap", "kontak_email": "", "kontak_raw": "Nama Lengkap] [Jurusan]Poltekkes Kemenkes Tasikmalaya [email@domain", "image": "1TTZ4J0Ww2GeKO5M4m7QRaJfM6o-rsFJj_image5.jpeg", "slug": "aplikasi-abpk-ber-kb-mobile-alat-bantu-p"}, {"id": "1VJK0k5E77ESPrPNt1q6RfEsHwCOBuVp3", "filename": "Desain Katalog Penelitian SIKEMBANG - Herni Kurnia.pptx", "judul": "SiKembang: Aplikasi Konseling Berimbang Kesehatan Ibu dan Anak Terintegrasi", "peneliti": ["Herni Kurnia, SST., M.Keb", "Nunung Mulyani, APP., M.Kes"], "jurusan": "Kebidanan", "skema": "PTUPT (Penelitian Terapan Unggulan Perguruan Tinggi)", "tkt": "TKT 4 (Penerapan Puskesmas)", "kategori_tkt": "Penelitian Desentralisasi", "hki": "Hak Cipta Terdaftar", "uji_lab": "Uji Efektivitas Kepatuhan Kunjungan ANC", "kategori_inovasi": "Aplikasi Digital & EWS", "deskripsi": "SiKembang singkatan dari Strategi Konseling Berimbang (SKB). Strategi Konseling Berimbang merupakan Strategi konseling yang meningkatkan ketepatan interaksi antara petugas kesehatan dan klien pada pelayanan KB, mudah dilakukan, interaktif dan berorientasi pada klien. Aplikasi SiKembang dirancang untuk memudahkan tenaga Kesehatan membantu klien dalam pemilihan KB yang sesuai dengan menggunakan Strategi Konseling Berimbang (SKB) tanpa harus membawa 3 media SKB. Berbasis Clinical Decision Support System (CDSS) Berbasis Evidence-Based Practice Algoritma Pengambilan Keputusan Klinis Mempercepat Pengambilan Keputusan Meningkatkan Ketepatan Pemilihan Kontrasepsi Mendukung Konseling Berpusat pada Pasien (Patient-Centered Counseling) Mudah Digunakan (User Friendly) Mobile dan Fleksibel", "keunggulan": "Algoritma konseling berimbang yang menuntun tenaga kesehatan memberikan solusi personal sesuai kondisi spesifik ibu hamil.", "kontak_nama": "Herni Kurnia, SST., M.Keb", "kontak_email": "herni.kurnia@dosen.poltekkestasikmalaya.ac.id", "kontak_raw": "Herni Kurnia, SST., M.Keb] [Jurusan Kebidanan]Poltekkes Kemenkes Tasikmalaya [herni.kurnia@dosen.poltekkestasikmalaya.ac.id", "image": "1VJK0k5E77ESPrPNt1q6RfEsHwCOBuVp3_image5.png", "slug": "sikembang-aplikasi-konseling-berimbang-k"}, {"id": "1W5Ply9", "filename": "_nf2waR8sAz1GBYJqeSToE_Vx_Desain Katalog Penelitian - Win Purnamasari.pptx", "judul": "nf2waR8sAz1GBYJqeSToE_Vx_ - Win Purnamasari", "peneliti": ["Win Purnamasari"], "jurusan": "Kesehatan Terapan", "skema": "Penelitian Terapan / Mandiri", "tkt": "TKT 2 - 3 (Konsep & Pembuktian Awal)", "kategori_tkt": "", "hki": "Dalam Proses Pengajuan", "uji_lab": "Uji Coba Lapangan / Validasi Ahli", "kategori_inovasi": "Media Edukasi & Buku", "deskripsi": "", "keunggulan": "", "kontak_nama": "Win Purnamasari", "kontak_email": "", "kontak_raw": "", "image": "1W5Ply9_image1.png", "slug": "nf2war8saz1gbyjqestoe-vx-win-purnamasari"}, {"id": "1WjOmT-sP5Y-GKc0BcP-", "filename": "BRwVBQukq5NA_Desain Katalog Penelitian - Imat Rochimat.pptx", "judul": "Buku Referensi", "peneliti": ["Imat Rochimat", "Tovani Sri"], "jurusan": "Gizi", "skema": "PDUPT", "tkt": "TKT 2", "kategori_tkt": "3", "hki": "Tercatat / Terdaftar (Hak Cipta / Paten)", "uji_lab": "Tidak (Uji Lapangan Terbatas)", "kategori_inovasi": "Pangan Fungsional & Gizi", "deskripsi": "Buku referensi akan menyajikan analisis mendalam mengenai penerapan praktis Pedoman Pelayanan Farmasi Klinik di sektor kesehatan terkini berdasarkan dari hasil penelitian empiris dengan pendekatan kualitatif yang membedah sejauh mana regulasi dan standar pelayanan farmasi klinik telah efektif dijalankan di lapangan, serta mengidentifikasi faktor-faktor penghambat utamanya. Buku ini tidak hanya memaparkan teori, tetapi juga mengeksplorasi realitas di fasilitas kesehatan mulai dari kesiapan sumber daya manusia, kendala operasional, hingga aspek manajerial berbasis data lapangan, serta rekomendasi strategis penyempurnaan implementasi kebijakan demi meningkatkan mutu pelayanan kesehatan dan keselamatan pasien khususnya DBD.", "keunggulan": "Buku referensi ini mengonversi data empiris penelitian kualitatif menjadi panduan yang aplikatif yang memfasilitasi regulasi Pedoman Pelayanan Farmasi Klinik dengan kenyataan hambatan operasional di fasilitas kesehatan.", "kontak_nama": "imat.rochimat@dosen.", "kontak_email": "imat.rochimat@dosen.poltekkestasikmalaya.ac.id", "kontak_raw": "imat.rochimat@dosen.poltekkestasikmalaya.ac.id", "image": "1WjOmT-sP5Y-GKc0BcP-_", "slug": "buku-referensi"}, {"id": "1byAX3AZC-", "filename": "zOgodxOvRhElMBAOKucMan_Katalog Penelitian Mirror Therapy.Novi Indriani - Novi Indriani.pptx", "judul": "Mirror therapy genggam bola karet adalah modalitas rehabilitasi sederhana yang memadukan latihan di depan cermin dengan latihan menggenggam bola karet", "peneliti": ["Ns. Novi Indriani, S.ST., M.Tr.Kep. (Ketua", "Ns. Syaukia Adini, M.Tr.Kep.", "Ners Sofia Februanti, M.Kep.", "Irfany Nurul Hamid, S.ST., M.Tr.Kep.", "Eko Rustamaji Wiyatno, S.ST., M.Tr.Kep."], "jurusan": "Keperawatan", "skema": "Penelitian Kerjasama Antar Perguruan Tinggi (Desentralisasi", "tkt": "TKT 2 Target A", "kategori_tkt": "Level 2 (SBK Riset Dasar", "hki": "Dalam Proses Pengajuan", "uji_lab": "Tidak (Uji Lapangan Terbatas)", "kategori_inovasi": "Media Edukasi & Buku", "deskripsi": "Mirror therapy genggam bola karet adalah modalitas rehabilitasi sederhana yang memadukan latihan di depan cermin dengan latihan menggenggam bola karet untuk membantu memulihkan kekuatan otot ekstremitas atas pasien stroke iskemik. Intervensi diberikan 15 menit, 2 kali sehari, selama 5 hari. Uji coba dilakukan pada kelompok intervensi (20 responden, RSUD dr. Soekardjo Tasikmalaya) dibandingkan kelompok kontrol dengan latihan ROM standar (RSUD Pandega, progres 17 dari 20 responden).", "keunggulan": "Sederhana, murah, dan mudah diterapkan secara mandiri Memadukan stimulasi visual (mirror therapy) dengan latihan motorik genggam bola karet Bahan mudah didapat, ringan dibawa, dapat digunakan sewaktu-waktu Berpotensi diterapkan di layanan kesehatan primer maupun rumah sakit", "kontak_nama": "Ns. Novi Indriani, S.ST., M.Tr.Kep.", "kontak_email": "novi.indriani@dosen.poltekkestasikmalaya.ac.id", "kontak_raw": "Ns. Novi Indriani, S.ST., M.Tr.Kep. Jurusan Keperawatan Poltekkes Kemenkes Tasikmalaya [novi.indriani@dosen.poltekkestasikmalaya.ac.id", "image": "1byAX3AZC-_image5.png", "slug": "mirror-therapy-genggam-bola-karet-adalah"}, {"id": "1ck3XoK9nFD", "filename": "7V7kVV-sYf-JXP_e_xzv7_Desain Katalog Penelitian - Tetet Kartilah.pptx", "judul": "Produk penelitian berupa buku modul discharge planning pasien DM di RS yang dilengkapi dengan kurikulum pelatihan discharge planning untuk optimalisas", "peneliti": ["Tetet Kartilah", "Peni Cahyati", "Yanyan Bahtiar", "Syaukia Adini"], "jurusan": "Keperawatan", "skema": "PDUPT", "tkt": "TKT 3", "kategori_tkt": "Pembuatan modul yang terverifikasi pakar dan teruji secara klinis tetapi belum diuji secara luas namun cukup membuktikan kelayakan fungsi dasar konsep tersebut", "hki": "Belum Terdaftar", "uji_lab": "Tidak (Uji Lapangan Terbatas)", "kategori_inovasi": "Buku, Modul & Media Edukasi", "deskripsi": "Produk penelitian berupa buku modul discharge planning pasien DM di RS yang dilengkapi dengan kurikulum pelatihan discharge planning untuk optimalisasi penggunaan modul. Modul direview expert.", "keunggulan": "Modul mengadaptasi kebutuhan klinis, social budaya rural, dan standar Akreditasi RS. Dapat digunakan sebagai pedoman pelaksanaan discharge planning dan diadaptasi untuk kasus yang berbeda dengan penyesuaian pada regimen kasus/penyakit", "kontak_nama": "Tetet Kartilah", "kontak_email": "Tetet.kartilah@dosen.poltekkestasikmalaya.ac.id", "kontak_raw": "Tetet Kartilah Jurusan KeperawatanPoltekkes Kemenkes Tasikmalaya [Tetet.kartilah@dosen.poltekkestasikmalaya.ac.id", "image": "1ck3XoK9nFD_image5.png", "slug": "produk-penelitian-berupa-buku-modul-disc"}, {"id": "1dzDLZsTaBfOvuiMWWU2-GhXYnrh9cged", "filename": "DISAIN - Endang Nurrochmi.pptx", "judul": "Panduan Praktik Prenatal Yoga Terstruktur untuk Pencegahan Diabetes Gestasional di Puskesmas", "peneliti": ["Endang Nurrochmi, SST., M.Kes", "Elit Pebryatie, SST., M.Keb", "Nina Nirmaya Mariani, SST"], "jurusan": "Kebidanan", "skema": "PKPT (Penelitian Kerjasama Antar Perguruan Tinggi)", "tkt": "TKT 3 (Uji Klinis Lapangan)", "kategori_tkt": "", "hki": "Hak Cipta (Dalam Proses)", "uji_lab": "Uji Kadar Glukosa Darah Puasa & 2 Jam PP Ibu Hamil", "kategori_inovasi": "Intervensi & Rekomendasi Klinis", "deskripsi": "", "keunggulan": "Asana yoga khusus trimester 2 & 3 yang aman, menjaga toleransi glukosa tanpa menimbulkan stres janin.", "kontak_nama": "Endang Nurrochmi", "kontak_email": "", "kontak_raw": "", "image": "", "slug": "panduan-praktik-prenatal-yoga-terstruktu"}, {"id": "1enJK8Gwy5xweh5rC8rYWsrm3CnVW2RpI", "filename": "Desain Katalog Penelitian 2026 - Zona “Zona Musik” Lagu.pptx", "judul": "Sistem Rekam Medis Elektronik Bencana Mobile (RME-Bencana) Kabupaten Tasikmalaya", "peneliti": ["Gugun Priyadi, S.Kom., M.Kom", "Andi Suhenda, S.ST., M.KM"], "jurusan": "Rekam Medis & Informasi Kesehatan", "skema": "Penelitian Terapan Unggulan", "tkt": "TKT 4 (Validasi Sistem Tanggap Darurat)", "kategori_tkt": "Pembuktian konsep", "hki": "Hak Cipta Terdaftar", "uji_lab": "Uji Ketahanan Offline-First Sync", "kategori_inovasi": "Aplikasi Digital & EWS", "deskripsi": "Penelitian menganalisis kebutuhan sistem RME pasien bencana berbasis mobile di Kabupaten Bandung menggunakan framework PIECES melalui wawancara pada Dinkes, BPBD, dan Puskesmas untuk menghasilkan spesifikasi kebutuhan sistem.", "keunggulan": "Dapat beroperasi tanpa internet (offline-first sync) di medan bencana untuk mencatat triase dan rekam medis pengungsi.", "kontak_nama": "Gugun Priyadi RMIK Tasikmalaya", "kontak_email": "gugunpriyadi1@gmail.com", "kontak_raw": "Gugun Priyadi] [RMIK Tasikmalaya]Poltekkes Kemenkes Tasikmalaya [gugunpriyadi1@gmail.com", "image": "", "slug": "sistem-rekam-medis-elektronik-bencana-mo"}, {"id": "1gNpFyQfp7kOoPmDtJkpIeXXwJ9hyuunT", "filename": "Katalog Penelitian 2026 (sam dkk) edit - Samone one.pptx", "judul": "Media Edukasi 'Cegah Karies Botol Susu' bagi Pengasuh Anak Usia Pra-Sekolah", "peneliti": ["Samjaji, S.SiT, M.Kes", "Aan Kusmana, SKM, MA.Kes", "Agung Widyagdo"], "jurusan": "Kesehatan Gigi", "skema": "Penelitian Mandiri", "tkt": "TKT 3 (Evaluasi Lapangan Posyandu)", "kategori_tkt": "", "hki": "Hak Cipta Terdaftar", "uji_lab": "Uji Indeks def-t & Perubahan Perilaku Ibu", "kategori_inovasi": "Buku, Modul & Media Edukasi", "deskripsi": "Masalah kesehatan gigi dan mulut pada anak prasekolah, khususnya kejadian Early Childhood Caries (ECC) atau dikenal juga sebagai Nursing Bottle Caries (NBC), masih menjadi permasalahan kesehatan masyarakat yang signifikan di Indonesia. Tingginya angka kejadian karies pada anak usia dini tidak hanya berdampak pada kesehatan gigi, tetapi juga memengaruhi status gizi, pertumbuhan, perkembangan, serta kualitas hidup anak. Oleh karena itu, upaya pencegahan sejak dini menjadi sangat penting.", "keunggulan": "Menurunkan insiden Early Childhood Caries (ECC) akibat dot susu malam hari melalui pendekatan keluarga.", "kontak_nama": "Samjaji", "kontak_email": "samonetasik@gmail.com", "kontak_raw": "SamjajiJurusan Kesehatan GigiPoltekkes Kemenkes Tasikmalaya [samonetasik@gmail.com", "image": "1gNpFyQfp7kOoPmDtJkpIeXXwJ9hyuunT_image2.png", "slug": "media-edukasi-cegah-karies-botol-susu-ba"}, {"id": "1iCQTu2Og5vG-qUuX9VFRkIk3hMiLmLrF", "filename": "Katalog Penelitian arief t - Pusbangdik Poltekkes Tasikmalaya.pptx", "judul": "Early Warning System (EWS) Berbasis Data Rutin Puskesmas untuk Deteksi Dini Krisis Kesehatan Daerah Bencana", "peneliti": ["Dr. Arief Tarmansyah Iman, MKM", "Ulfah Fauziyah, Amd. RMIK, SST, M.MKes"], "jurusan": "Rekam Medis & Informasi Kesehatan", "skema": "Penelitian Mandiri", "tkt": "TKT 3 (Validasi Teknologi Lingkungan Nyata)", "kategori_tkt": "telah memasuki fase validasi teknologi melalui pengembangan dan uji coba Early Warning System (EWS) berbasis data rutin puskesmas pada lingkungan nyata terbatas", "hki": "Hak Cipta / Paten (Dalam Proses)", "uji_lab": "Uji Algoritma Deteksi Tren & Anomali Data Puskesmas", "kategori_inovasi": "Aplikasi Digital & EWS", "deskripsi": "Produk yang dihasilkan adalah prototype Early Warning System (EWS) berbasis analisis data rutin Puskesmas yang mengintegrasikan penilaian kualitas data, deteksi tren, dan identifikasi sinyal peringatan dini. Prototype ini dirancang sebagai decision support tool untuk meningkatkan kesiapsiagaan dan respons terhadap potensi krisis kesehatan di wilayah rawan bencana.", "keunggulan": "Decision support tool cerdas yang mendeteksi lonjakan kasus penyakit secara otomatis dari data rekam medis rutin puskesmas.", "kontak_nama": "Dr. Arief Tarmansyah Iman, MKM", "kontak_email": "Arieftarmansyah@gmail.com", "kontak_raw": "Dr. Arief Tarmansyah Iman, MKM Jurusan: Rekam Medis Informasi KesehatanPoltekkes Kemenkes Tasikmalaya Arieftarmansyah@gmail.com", "image": "1iCQTu2Og5vG-qUuX9VFRkIk3hMiLmLrF_image5.png", "slug": "early-warning-system-ews-berbasis-data-r"}, {"id": "1kz3i5eoPkQLgCKQWZ8rm3kdpsqf4BPHO", "filename": "2026 Desain Katalog Penelitian - Fitria Dewi Rahmawati.pptx", "judul": "Poster Alur Penyelenggaraan Pelayanan Rekam Medis dalam Telemedicine Rumah Sakit", "peneliti": ["Fitria Dewi Rahmawati, S.Tr.Kes", "Lina Khasanah, S.ST"], "jurusan": "Rekam Medis & Informasi Kesehatan", "skema": "PKPT (Penelitian Kerjasama Antar Perguruan Tinggi)", "tkt": "TKT 2 (Standarisasi Alur SOP)", "kategori_tkt": "3", "hki": "Hak Cipta Terdaftar", "uji_lab": "Validasi Ahli Hukum Kesehatan & Komite Medis", "kategori_inovasi": "Buku, Modul & Media Edukasi", "deskripsi": "Poster berupa alur pelayanan telemedicine. Alur Pelayanan Rekam Medis dalam Telemedicine: Pendaftaran secara online Pengisian Informasi Klinis Pengolahan Data Integrasi dengan system SATU SEHAT Penyimpanan aman dan sesuai Standarisasi Data Transfer Data", "keunggulan": "Menjamin aspek legalitas, kerahasiaan data pasien, dan kepatuhan regulasi Kemenkes dalam konsultasi medis daring.", "kontak_nama": "Fitria Dewi Rahmawati", "kontak_email": "fitria.dewi@dosen.poltekkestasikmalaya.ac.id", "kontak_raw": "Fitria Dewi RahmawatiJurusan RMIKPoltekkes Kemenkes Tasikmalaya fitria.dewi@dosen.poltekkestasikmalaya.ac.id", "image": "", "slug": "poster-alur-penyelenggaraan-pelayanan-re"}, {"id": "1n", "filename": "qafSnqxAOaIzOstA_nuIPa86eJzUHx_Desain Katalog Penelitian smart sipatut - Yulia Herliani.pptx", "judul": "SMART SIPATUT (Smart Simulator Penanganan Atonia Uteri) merupakan media pembelajaran berbasis simulator yang dirancang untuk meningkatkan kompetensi m", "peneliti": ["Yulia Herliani, SST, M.Keb", "Bd Wiwin Mintarsih, S.SiT, M.Kes", "Sri Gustini, SST, M.Keb"], "jurusan": "Kebidanan", "skema": "PDUPT", "tkt": "TKT 2", "kategori_tkt": "2", "hki": "Tercatat / Terdaftar (Hak Cipta / Paten)", "uji_lab": "Tidak (Uji Lapangan Terbatas)", "kategori_inovasi": "Teknologi Tepat Guna & Simulator", "deskripsi": "SMART SIPATUT (Smart Simulator Penanganan Atonia Uteri) merupakan media pembelajaran berbasis simulator yang dirancang untuk meningkatkan kompetensi mahasiswa kebidanan dalam penanganan perdarahan postpartum akibat atonia uteri. Simulator ini menampilkan phantom panggul berukuran asli (1:1) yang dilengkapi model uterus normal dan abnormal, sistem simulasi perdarahan, sensor elektronik, serta Human Machine Interface (HMI) berbasis layar sentuh sehingga mampu memberikan pengalaman belajar yang realistis, interaktif, dan aman. SMART SIPATUT dikembangkan menggunakan material berbasis kearifan lokal dengan mengintegrasikan teknologi mekanik dan elektronik untuk mendukung pembelajaran praktik kebidanan berbasis evidence-based practice.", "keunggulan": "Realistis, dengan phantom panggul skala 1:1 dan simulasi perdarahan yang menyerupai kondisi klinis nyata. Interaktif dan berbasis teknologi, dilengkapi sensor elektronik, touchscreen HMI, sistem alarm, dan kontrol portabel. Mendukung pembelajaran berbasis kompetensi, terutama untuk praktik kegawatdaruratan obstetri, skill laboratory, dan Objective Structured Clinical Examination (OSCE). Praktis dan mudah dioperasikan, sehingga dapat digunakan sebagai media pembelajaran maupun pelatihan. Menggunakan material berbasis kearifan lokal, sehingga lebih efisien dan berpotensi menekan biaya pengadaan dibandingkan simulator impor. Berbasis evidence-based practice, dengan desain dan pengembangannya divalidasi oleh pakar kebidanan sehingga mendukung peningkatan kualitas pendidikan kebidanan.", "kontak_nama": "Yulia Herliani, SST, M.Keb", "kontak_email": "yulia.herliani@dosen.poltekkestasikmalaya.ac.id", "kontak_raw": "Yulia Herliani, SST, M.Keb] [Jurusan] Kebidanan Poltekkes Kemenkes Tasikmalaya [email : yulia.herliani@dosen.poltekkestasikmalaya.ac.id", "image": "1n_image5.jpeg", "slug": "smart-sipatut-smart-simulator-penanganan"}, {"id": "1qZPuvBQ", "filename": "NFLiec1EJh1NV3PabyO-11Py_Desain Katalog Penelitian - arip rahman.pptx", "judul": "Produk Belum bisa disajikan, penelitian akan dilaksanakan pada minggu ke 4 bulan Juli", "peneliti": ["Arip Rahman, M.Tr.Kep", "Asep Riyana,SPd.MA.Kes", "Sofia Februanti,S.Kep.Ners.M.Kep"], "jurusan": "Kesehatan Terapan", "skema": "PDP", "tkt": "TKT .", "kategori_tkt": "", "hki": "Tercatat / Terdaftar (Hak Cipta / Paten)", "uji_lab": "Tidak (Uji Lapangan Terbatas)", "kategori_inovasi": "Media Edukasi & Buku", "deskripsi": "Produk Belum bisa disajikan, penelitian akan dilaksanakan pada minggu ke 4 bulan Juli ………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………........", "keunggulan": "", "kontak_nama": "Nama Lengkap", "kontak_email": "", "kontak_raw": "Nama Lengkap] [Jurusan]Poltekkes Kemenkes Tasikmalaya [email@domain", "image": "", "slug": "produk-belum-bisa-disajikan-penelitian-a"}, {"id": "1xEn8rG-OxuKXo48Sa7nu7M4AicPQai9D", "filename": "Desain Katalog Penelitian_Guasha_HT - Nurasih Nurasih.pptx", "judul": "Metode Terapi Komplementer Kerokan Guasha untuk Pengendalian Tekanan Darah Wanita Lansia Hipertensi", "peneliti": ["Bd. Nurasih, SST., M.Keb", "Bdn. Rani Widiyanti, SST., M.Keb", "Mimin Nurjanah"], "jurusan": "Kebidanan", "skema": "PDUPT (Penelitian Dasar Unggulan Perguruan Tinggi)", "tkt": "TKT 3 (Uji Klinis Intervensi Terkontrol)", "kategori_tkt": "Perumusan konsep dan pembuktian awal berdasarkan kajian ilmiah.", "hki": "Hak Cipta Terdaftar", "uji_lab": "Uji Hemodinamik & Biomarker Vaskular", "kategori_inovasi": "Farmasi & Terapi Komplementer", "deskripsi": "Deskripsi singkat inovasi penelitian]:Penelitian ini merupakan penelitian tahun pertama skema Penelitian Dasar Unggulan Perguruan Tinggi (PDUPT) yang bertujuan mengeksplorasi praktik Guasha sebagai terapi komplementer pada wanita lansia dengan hipertensi di Kota Cirebon. Pendekatan fenomenologi digunakan untuk menggali persepsi, pengalaman, dan pemaknaan dari tenaga kesehatan, budayawan, terapis Guasha, wanita lansia dengan hipertensi, serta anggota keluarganya melalui wawancara mendalam dan Focus Group Discussion (FGD). Hasil penelitian menjadi dasar penyusunan Standar Operasional Prosedur (SOP) Guasha berbasis bukti yang akan digunakan pada penelitian tahun kedua untuk menguji efektivitas terapi Guasha melalui desain quasi experimental. Penelitian ini mengangkat praktik budaya lokal menjadi intervensi kesehatan yang dapat dipertanggungjawabkan secara ilmiah dan berpotensi mendukung pengembangan pelayanan kesehatan tradisional komplementer di fasilitas pelayanan kesehatan primer.", "keunggulan": "Mekanisme pelepasan nitrat oksida dan vasodilatasi lokal yang aman, menurunkan tekanan darah sistolik dan diastolik.", "kontak_nama": "Program Studi Kebidanan Cirebon", "kontak_email": "", "kontak_raw": "Program Studi Kebidanan Cirebon", "image": "1xEn8rG-OxuKXo48Sa7nu7M4AicPQai9D_image5.png", "slug": "metode-terapi-komplementer-kerokan-guash"}, {"id": "1y8rb9RN-sFPLK5rUj1mzqY13I92LOZv8", "filename": "Desain Katalog Penelitian-Pantyliner Care Propolis - Laila Putri Suptiani.pptx", "judul": "Pantyliner Herbal 'Propolis Care': Inovasi Higienitas Reproduksi Berbahan Aktif Antijamur Candida albicans", "peneliti": ["Nunung Mulyani, A.Per.Pen., M.Kes", "Herni Kurnia, SST., M.Keb"], "jurusan": "Kebidanan", "skema": "PTUPT (Penelitian Terapan Unggulan Perguruan Tinggi)", "tkt": "TKT 5 (Validasi Bahan Alami & Formulasi)", "kategori_tkt": "Penelitian Desentralisasi", "hki": "Paten Sederhana Terdaftar", "uji_lab": "Ya (Uji Daya Hambat Zona Bening terhadap Candida albicans & Uji Iritasi Kulit)", "kategori_inovasi": "Teknologi Tepat Guna & Simulator", "deskripsi": "Pantyliner \"Propolis Care\" merupakan inovasi produk kesehatan reproduksi wanita berupa pantyliner yang dikembangkan sebagai media preventif terhadap kejadian leukorea (keputihan) akibat infeksi Candida albicans pada wanita usia subur. Produk ini dirancang dengan mengintegrasikan fungsi pantyliner sebagai penyerap cairan vagina dengan pemanfaatan propolis sebagai bahan aktif alami yang memiliki aktivitas antijamur, antibakteri, antiinflamasi, dan antioksidan.", "keunggulan": "Menggunakan ekstrak propolis lebah trigona alami tanpa pewangi sintetis atau klorin yang ramah mukosa kewanitaan.", "kontak_nama": "Nunung Mulyani, A.Per.Pen., M.Kes. 0896-5300-0889", "kontak_email": "", "kontak_raw": "Nunung Mulyani, A.Per.Pen., M.Kes. 0896-5300-0889Jurusan Kebidanan Poltekkes Kemenkes Tasikmalaya", "image": "1y8rb9RN-sFPLK5rUj1mzqY13I92LOZv8_image5.png", "slug": "pantyliner-herbal-propolis-care-inovasi-"}, {"id": "1z3UXgCadzG9120R-zm7nJ3cYYrGPgT1a", "filename": "Desain Katalog Penelitian - Nunung Yulia.pptx", "judul": "Mikroenkapsulasi Bakteri Asam Laktat pada Serbuk Minuman Probiotik Sinbiotik Sari Ubi Jalar Oranye", "peneliti": ["apt. Nunung Yulia, M.Si", "apt. Shandra Isasi S, M.S.Farm"], "jurusan": "Farmasi", "skema": "PKPT (Penelitian Kerjasama Antar Perguruan Tinggi)", "tkt": "TKT 4 (Karakterisasi Laboratorium Farmasi)", "kategori_tkt": "Bidang Kesehatan (Kategori Produk Pangan Fungsional/Suplemen Kesehatan berbasis Herbal),", "hki": "Paten Terdaftar", "uji_lab": "Ya (Uji Viabilitas Sel Bakteri Probiotik & Uji Stabilitas Asam Lambung)", "kategori_inovasi": "Pangan Fungsional & Gizi", "deskripsi": "Penelitian ini berfokus pada pengembangan produk pangan fungsional berupa minuman probiotik cair berbasis campuran sari ubi jalar oranye dan susu segar yang difermentasi menggunakan Bakteri Asam Laktat (BAL) kultur campuran Lactobacillus bulgaricus dan Streptococcus thermophilus. Untuk meningkatkan nilai fungsional, viabilitas, stabilitas, serta daya simpan bakteri dari paparan suhu lingkungan, produk cair tersebut kemudian diproses lebih lanjut melalui metode mikroenkapsulasi menjadi produk serbuk kering menggunakan kombinasi bahan penyalut susu skim 10% dan variasi konsentrasi maltodekstrin (0% hingga 20% b/v). Hingga tahap laporan kemajuan ini, pengujian skala laboratorium telah berhasil memvalidasi karakteristik fisikokimia produk, keutuhan morfologi sel BAL Gram positif, tingkat viabilitas sel pasca-enkapsulasi, serta pencapaian kadar air yang stabil di bawah 5%. Berbagai luaran penelitian saat ini sedang dipersiapkan, mencakup penyusunan manuskrip artikel ilmiah untuk dipublikasikan pada jurnal nasional terakreditasi Sinta 2 serta penyusunan dokumen pendaftaran paten sederhana terkait metode formulasi serbuk simbiotik tersebut.", "keunggulan": "Teknologi mikroenkapsulasi yang melindungi probiotik hidup dari asam lambung hingga usus halus, kaya beta-karoten alami.", "kontak_nama": "Nunung Yulia", "kontak_email": "nungyulia86@gmail.com", "kontak_raw": "Nunung Yulia] [Jurusan D3 Farmasi]Poltekkes Kemenkes Tasikmalaya [email: nungyulia86@gmail.com", "image": "1z3UXgCadzG9120R-zm7nJ3cYYrGPgT1a_image7.png", "slug": "mikroenkapsulasi-bakteri-asam-laktat-pad"}];
+
+        let currentFilteredData = [...CATALOG_DATA];
+        let currentView = 'grid'; // 'grid' | 'table'
+        let activeModalItem = null;
+        let lightboxCurrentScale = 1.0;
+
+        // Jurusan Color Badges
+        const JURUSAN_COLORS = {
+            'Kebidanan': { bg: 'bg-rose-100', text: 'text-rose-800', border: 'border-rose-200', icon: 'fa-baby' },
+            'Keperawatan': { bg: 'bg-emerald-100', text: 'text-emerald-800', border: 'border-emerald-200', icon: 'fa-user-nurse' },
+            'Kesehatan Gigi': { bg: 'bg-sky-100', text: 'text-sky-800', border: 'border-sky-200', icon: 'fa-tooth' },
+            'Gizi': { bg: 'bg-amber-100', text: 'text-amber-800', border: 'border-amber-200', icon: 'fa-apple-whole' },
+            'Rekam Medis & Informasi Kesehatan': { bg: 'bg-indigo-100', text: 'text-indigo-800', border: 'border-indigo-200', icon: 'fa-laptop-medical' },
+            'Farmasi': { bg: 'bg-teal-100', text: 'text-teal-800', border: 'border-teal-200', icon: 'fa-pills' },
+            'Kesehatan Terapan': { bg: 'bg-slate-100', text: 'text-slate-800', border: 'border-slate-200', icon: 'fa-notes-medical' }
+        };
+
+        // Render Cards
+        function renderCatalog() {
+            const gridContainer = document.getElementById('catalogGrid');
+            const tableBody = document.getElementById('catalogTableBody');
+            const emptyState = document.getElementById('emptyState');
+            const visibleCount = document.getElementById('visibleCount');
+
+            visibleCount.textContent = currentFilteredData.length;
+
+            if (currentFilteredData.length === 0) {
+                gridContainer.classList.add('hidden');
+                document.getElementById('catalogTableContainer').classList.add('hidden');
+                emptyState.classList.remove('hidden');
+                return;
+            } else {
+                emptyState.classList.add('hidden');
+            }
+
+            if (currentView === 'grid') {
+                gridContainer.classList.remove('hidden');
+                document.getElementById('catalogTableContainer').classList.add('hidden');
+            } else {
+                gridContainer.classList.add('hidden');
+                document.getElementById('catalogTableContainer').classList.remove('hidden');
+            }
+
+            // Render Grid
+            gridContainer.innerHTML = currentFilteredData.map((item, idx) => {
+                const style = JURUSAN_COLORS[item.jurusan] || JURUSAN_COLORS['Kesehatan Terapan'];
+                const imgSrc = item.image ? `katalog_assets/images/${item.image}` : '';
+                const authors = item.peneliti && item.peneliti.length > 0 ? item.peneliti.slice(0, 2).join(', ') + (item.peneliti.length > 2 ? ' dkk.' : '') : 'Tim Peneliti';
+
+                return `
+                <div class="bg-white rounded-3xl overflow-hidden border border-slate-200/90 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col group">
+                    
+                    <!-- Card Top Image / Banner -->
+                    <div class="relative h-52 bg-slate-100 overflow-hidden cursor-pointer flex items-center justify-center" onclick="openModal('${item.id}')">
+                        ${imgSrc ? `
+                            <img src="${imgSrc}" alt="${item.judul}" class="w-full h-full object-cover group-hover:scale-105 transition-all duration-500" onerror="this.parentElement.innerHTML='<div class=\'flex flex-col items-center justify-center h-full text-slate-400\'><i class=\'fa-solid fa-shapes text-4xl mb-2\'></i><span class=\'text-xs font-semibold\'>Polkestama Inovasi</span></div>'">
+                            
+                            <!-- Fullscreen trigger icon in corner of card image -->
+                            <button onclick="event.stopPropagation(); openFullscreenImage('${imgSrc}', '${item.judul.replace(/'/g, "\'")}')" class="absolute bottom-3 right-3 w-8 h-8 rounded-full bg-white/90 hover:bg-white text-slate-800 shadow-md flex items-center justify-center text-xs opacity-0 group-hover:opacity-100 transition-all hover:scale-110" title="Perbesar Gambar Fullscreen">
+                                <i class="fa-solid fa-expand"></i>
+                            </button>
+                        ` : `
+                            <div class="flex flex-col items-center justify-center text-slate-400 p-6 text-center">
+                                <div class="w-16 h-16 rounded-2xl ${style.bg} ${style.text} flex items-center justify-center text-2xl mb-2">
+                                    <i class="fa-solid ${style.icon}"></i>
+                                </div>
+                                <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">${item.jurusan}</span>
+                            </div>
+                        `}
+                        
+                        <!-- Floating Badges -->
+                        <div class="absolute top-3 left-3 flex flex-wrap gap-1.5">
+                            <span class="text-[11px] font-bold px-2.5 py-0.5 rounded-full shadow-sm ${style.bg} ${style.text} backdrop-blur-sm border ${style.border}">
+                                <i class="fa-solid ${style.icon} mr-1"></i>${item.jurusan}
+                            </span>
+                        </div>
+                        <div class="absolute top-3 right-3">
+                            <span class="text-[11px] font-extrabold px-2.5 py-0.5 rounded-full shadow-sm bg-slate-900/80 text-white backdrop-blur-sm">
+                                ${item.tkt || 'TKT 3'}
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Card Content -->
+                    <div class="p-5 flex-grow flex flex-col justify-between">
+                        <div>
+                            <div class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider mb-1 flex items-center space-x-1.5">
+                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                                <span>${item.kategori_inovasi}</span>
+                            </div>
+                            <h4 onclick="openModal('${item.id}')" class="text-base font-bold text-slate-900 leading-snug line-clamp-2 hover:text-emerald-700 cursor-pointer transition-colors mb-2">
+                                ${item.judul}
+                            </h4>
+                            <p class="text-xs text-slate-500 font-medium mb-3 flex items-center">
+                                <i class="fa-solid fa-user-group text-slate-400 mr-1.5 text-[10px]"></i>
+                                <span class="truncate">${authors}</span>
+                            </p>
+                            <p class="text-xs text-slate-600 line-clamp-3 leading-relaxed mb-4">
+                                ${item.deskripsi || item.keunggulan || 'Deskripsi inovasi hasil penelitian sivitas akademika Poltekkes Kemenkes Tasikmalaya.'}
+                            </p>
+                        </div>
+
+                        <!-- Card Footer -->
+                        <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+                            <span class="text-[11px] font-bold text-slate-500 flex items-center">
+                                <i class="fa-solid fa-certificate text-emerald-600 mr-1"></i>
+                                <span class="truncate max-w-[140px]">${item.hki}</span>
+                            </span>
+                            <button onclick="openModal('${item.id}')" class="text-xs font-bold text-emerald-700 hover:text-emerald-800 bg-emerald-50 hover:bg-emerald-100 px-3 py-1.5 rounded-xl transition-all flex items-center space-x-1">
+                                <span>Detail</span>
+                                <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                `;
+            }).join('');
+
+            // Render Table
+            tableBody.innerHTML = currentFilteredData.map((item, idx) => {
+                const style = JURUSAN_COLORS[item.jurusan] || JURUSAN_COLORS['Kesehatan Terapan'];
+                const authors = item.peneliti && item.peneliti.length > 0 ? item.peneliti.join(', ') : 'Tim Peneliti';
+
+                return `
+                <tr class="hover:bg-slate-50 transition-colors">
+                    <td class="py-3 px-4 text-xs font-bold text-slate-400 text-center">${idx + 1}</td>
+                    <td class="py-3 px-4">
+                        <div class="font-bold text-slate-900 cursor-pointer hover:text-emerald-700" onclick="openModal('${item.id}')">
+                            ${item.judul}
+                        </div>
+                        <div class="text-[11px] text-slate-400 truncate max-w-md">${item.skema}</div>
+                    </td>
+                    <td class="py-3 px-4 text-xs text-slate-600 max-w-xs truncate">${authors}</td>
+                    <td class="py-3 px-4">
+                        <span class="text-xs font-bold px-2.5 py-0.5 rounded-full ${style.bg} ${style.text}">
+                            ${item.jurusan}
+                        </span>
+                    </td>
+                    <td class="py-3 px-4 text-xs text-slate-600">${item.kategori_inovasi}</td>
+                    <td class="py-3 px-4 text-center">
+                        <span class="text-xs font-extrabold px-2 py-0.5 rounded bg-slate-100 text-slate-800">
+                            ${item.tkt || '-'}
+                        </span>
+                    </td>
+                    <td class="py-3 px-4 text-xs text-slate-600 font-medium">${item.hki}</td>
+                    <td class="py-3 px-4 text-center">
+                        <button onclick="openModal('${item.id}')" class="p-1.5 text-xs text-emerald-700 hover:bg-emerald-50 rounded-lg font-bold" title="Buka Detail">
+                            <i class="fa-solid fa-eye"></i>
+                        </button>
+                    </td>
+                </tr>
+                `;
+            }).join('');
+
+            renderPrintView();
+        }
+
+        // Render Print Version
+        function renderPrintView() {
+            const printContainer = document.getElementById('printCatalogContainer');
+            printContainer.innerHTML = currentFilteredData.map((item, idx) => {
+                const authors = item.peneliti && item.peneliti.length > 0 ? item.peneliti.join(', ') : 'Tim Peneliti';
+                const imgSrc = item.image ? `katalog_assets/images/${item.image}` : '';
+
+                return `
+                <div class="print-card border border-slate-300 rounded-xl p-5 break-inside-avoid">
+                    <div class="flex items-start justify-between border-b border-slate-200 pb-2 mb-3">
+                        <div>
+                            <span class="text-[10pt] font-bold uppercase text-emerald-700 tracking-wider">#${idx + 1} | ${item.jurusan} | ${item.kategori_inovasi}</span>
+                            <h3 class="text-sm font-black text-slate-900 mt-1">${item.judul}</h3>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-xs font-bold px-2 py-0.5 rounded bg-slate-200">${item.tkt}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-3 gap-4 mb-3">
+                        ${imgSrc ? `
+                            <div class="col-span-1 border border-slate-200 rounded p-1">
+                                <img src="${imgSrc}" class="w-full h-32 object-contain" alt="Gambar Inovasi">
+                            </div>
+                        ` : ''}
+                        <div class="${imgSrc ? 'col-span-2' : 'col-span-3'} text-xs space-y-1.5">
+                            <p><strong>Tim Peneliti:</strong> ${authors}</p>
+                            <p><strong>Skema:</strong> ${item.skema} | <strong>HKI:</strong> ${item.hki} | <strong>Uji Lab:</strong> ${item.uji_lab}</p>
+                            <p><strong>Deskripsi:</strong> ${item.deskripsi || '-'}</p>
+                            <p><strong>Keunggulan:</strong> ${item.keunggulan || '-'}</p>
+                            <p><strong>Kontak:</strong> ${item.kontak_nama} (${item.kontak_email || 'Poltekkes Tasikmalaya'})</p>
+                        </div>
+                    </div>
+                </div>
+                `;
+            }).join('');
+        }
+
+        // Apply Search and Filters
+        function applyFilters() {
+            const searchVal = document.getElementById('searchInput').value.toLowerCase().trim();
+            const jurusanVal = document.getElementById('filterJurusan').value;
+            const kategoriVal = document.getElementById('filterKategori').value;
+            const tktVal = document.getElementById('filterTKT').value;
+            const hkiVal = document.getElementById('filterHKI').value;
+            const sortVal = document.getElementById('sortBy').value;
+
+            document.getElementById('clearSearchBtn').classList.toggle('hidden', searchVal === '');
+
+            currentFilteredData = CATALOG_DATA.filter(item => {
+                if (searchVal) {
+                    const fullHaystack = `${item.judul} ${item.peneliti.join(' ')} ${item.deskripsi} ${item.keunggulan} ${item.jurusan} ${item.kategori_inovasi}`.toLowerCase();
+                    if (!fullHaystack.includes(searchVal)) return false;
+                }
+
+                if (jurusanVal && item.jurusan !== jurusanVal) return false;
+                if (kategoriVal && item.kategori_inovasi !== kategoriVal) return false;
+
+                if (tktVal) {
+                    const tktStr = (item.tkt || '').toLowerCase();
+                    if (tktVal === '1-3' && !['1', '2', '3'].some(x => tktStr.includes(x))) return false;
+                    if (tktVal === '4-6' && !['4', '5', '6'].some(x => tktStr.includes(x))) return false;
+                    if (tktVal === '7-9' && !['7', '8', '9'].some(x => tktStr.includes(x))) return false;
+                }
+
+                if (hkiVal) {
+                    const hkiStr = (item.hki || '').toLowerCase();
+                    if (hkiVal === 'terdaftar' && !(hkiStr.includes('terdaftar') || hkiStr.includes('tercatat'))) return false;
+                    if (hkiVal === 'proses' && !hkiStr.includes('proses')) return false;
+                    if (hkiVal === 'belum' && (hkiStr.includes('terdaftar') || hkiStr.includes('tercatat') || hkiStr.includes('proses'))) return false;
+                }
+
+                return true;
+            });
+
+            if (sortVal === 'judul-asc') {
+                currentFilteredData.sort((a, b) => a.judul.localeCompare(b.judul));
+            } else if (sortVal === 'tkt-desc') {
+                currentFilteredData.sort((a, b) => (b.tkt || '').localeCompare(a.tkt || ''));
+            } else if (sortVal === 'jurusan') {
+                currentFilteredData.sort((a, b) => a.jurusan.localeCompare(b.jurusan));
+            }
+
+            renderCatalog();
+        }
+
+        function resetAllFilters() {
+            document.getElementById('searchInput').value = '';
+            document.getElementById('filterJurusan').value = '';
+            document.getElementById('filterKategori').value = '';
+            document.getElementById('filterTKT').value = '';
+            document.getElementById('filterHKI').value = '';
+            document.getElementById('sortBy').value = 'default';
+            applyFilters();
+        }
+
+        function clearSearch() {
+            document.getElementById('searchInput').value = '';
+            applyFilters();
+        }
+
+        function setViewMode(mode) {
+            currentView = mode;
+            const btnGrid = document.getElementById('viewBtnGrid');
+            const btnTable = document.getElementById('viewBtnTable');
+            
+            if (mode === 'grid') {
+                btnGrid.className = 'px-3 py-1 text-xs font-semibold rounded-md bg-white text-emerald-700 shadow-sm transition-all flex items-center space-x-1';
+                btnTable.className = 'px-3 py-1 text-xs font-semibold rounded-md text-slate-600 hover:text-slate-900 transition-all flex items-center space-x-1';
+            } else {
+                btnTable.className = 'px-3 py-1 text-xs font-semibold rounded-md bg-white text-emerald-700 shadow-sm transition-all flex items-center space-x-1';
+                btnGrid.className = 'px-3 py-1 text-xs font-semibold rounded-md text-slate-600 hover:text-slate-900 transition-all flex items-center space-x-1';
+            }
+            renderCatalog();
+        }
+
+        function switchTab(tab) {
+            const tabCatalog = document.getElementById('tab-catalog');
+            const tabAnalytics = document.getElementById('tab-analytics');
+            const btnCatalog = document.getElementById('tab-btn-catalog');
+            const btnAnalytics = document.getElementById('tab-btn-analytics');
+
+            if (tab === 'catalog') {
+                tabCatalog.classList.remove('hidden');
+                tabAnalytics.classList.add('hidden');
+                btnCatalog.className = 'px-3 sm:px-4 py-2 rounded-lg text-sm font-semibold transition-all bg-emerald-600 text-white shadow-sm flex items-center space-x-2';
+                btnAnalytics.className = 'px-3 sm:px-4 py-2 rounded-lg text-sm font-semibold transition-all text-slate-600 hover:bg-slate-100 flex items-center space-x-2';
+            } else {
+                tabCatalog.classList.add('hidden');
+                tabAnalytics.classList.remove('hidden');
+                btnAnalytics.className = 'px-3 sm:px-4 py-2 rounded-lg text-sm font-semibold transition-all bg-emerald-600 text-white shadow-sm flex items-center space-x-2';
+                btnCatalog.className = 'px-3 sm:px-4 py-2 rounded-lg text-sm font-semibold transition-all text-slate-600 hover:bg-slate-100 flex items-center space-x-2';
+                renderAnalyticsTab();
+            }
+        }
+
+        function renderAnalyticsTab() {
+            const jurusanList = document.getElementById('analyticsJurusanList');
+            const kategoriList = document.getElementById('analyticsKategoriList');
+
+            const jCounts = {};
+            const kCounts = {};
+            CATALOG_DATA.forEach(d => {
+                jCounts[d.jurusan] = (jCounts[d.jurusan] || 0) + 1;
+                kCounts[d.kategori_inovasi] = (kCounts[d.kategori_inovasi] || 0) + 1;
+            });
+
+            jurusanList.innerHTML = Object.entries(jCounts).sort((a,b) => b[1] - a[1]).map(([jur, cnt]) => {
+                const pct = ((cnt / CATALOG_DATA.length) * 100).toFixed(1);
+                return `
+                <div>
+                    <div class="flex justify-between text-xs font-semibold mb-1">
+                        <span class="text-slate-700">${jur}</span>
+                        <span class="text-slate-900 font-bold">${cnt} (${pct}%)</span>
+                    </div>
+                    <div class="w-full bg-slate-200 rounded-full h-2">
+                        <div class="bg-emerald-600 h-2 rounded-full" style="width: ${pct}%"></div>
+                    </div>
+                </div>
+                `;
+            }).join('');
+
+            kategoriList.innerHTML = Object.entries(kCounts).sort((a,b) => b[1] - a[1]).map(([kat, cnt]) => {
+                const pct = ((cnt / CATALOG_DATA.length) * 100).toFixed(1);
+                return `
+                <div>
+                    <div class="flex justify-between text-xs font-semibold mb-1">
+                        <span class="text-slate-700">${kat}</span>
+                        <span class="text-slate-900 font-bold">${cnt} (${pct}%)</span>
+                    </div>
+                    <div class="w-full bg-slate-200 rounded-full h-2">
+                        <div class="bg-teal-600 h-2 rounded-full" style="width: ${pct}%"></div>
+                    </div>
+                </div>
+                `;
+            }).join('');
+        }
+
+        // Open Detail Modal
+        function openModal(id) {
+            const item = CATALOG_DATA.find(x => x.id === id);
+            if (!item) return;
+            activeModalItem = item;
+
+            const modal = document.getElementById('detailModal');
+            const card = document.getElementById('modalCard');
+
+            document.getElementById('modalTitle').textContent = item.judul;
+            document.getElementById('modalJurusanBadge').textContent = item.jurusan;
+            document.getElementById('modalKategoriBadge').textContent = item.kategori_inovasi;
+            document.getElementById('modalTKTBadge').textContent = item.tkt || 'TKT 3';
+
+            document.getElementById('modalSkema').textContent = item.skema || '-';
+            document.getElementById('modalTKTDetail').textContent = item.tkt || '-';
+            document.getElementById('modalHKI').textContent = item.hki || '-';
+            document.getElementById('modalUjiLab').textContent = item.uji_lab || '-';
+
+            // Peneliti
+            const pContainer = document.getElementById('modalPenelitiList');
+            pContainer.innerHTML = (item.peneliti || []).map((p, i) => `
+                <div class="text-xs text-slate-800 font-semibold flex items-center space-x-1.5">
+                    <span class="w-4 h-4 rounded-full bg-emerald-100 text-emerald-800 text-[10px] flex items-center justify-center font-bold">${i + 1}</span>
+                    <span>${p}</span>
+                </div>
+            `).join('') || '<div class="text-xs text-slate-500">Tim Peneliti Polkestama</div>';
+
+            document.getElementById('modalDeskripsi').textContent = item.deskripsi || 'Deskripsi produk inovasi riset terapan Poltekkes Kemenkes Tasikmalaya.';
+            document.getElementById('modalKeunggulan').textContent = item.keunggulan || 'Keunggulan inovasi dan novelty produk.';
+
+            // Image
+            const imgElem = document.getElementById('modalImage');
+            const imgFallback = document.getElementById('modalImageFallback');
+            if (item.image) {
+                imgElem.src = `katalog_assets/images/${item.image}`;
+                imgElem.classList.remove('hidden');
+                imgFallback.classList.add('hidden');
+            } else {
+                imgElem.classList.add('hidden');
+                imgFallback.classList.remove('hidden');
+            }
+
+            // Contact
+            document.getElementById('modalKontakNama').textContent = item.kontak_nama || (item.peneliti && item.peneliti[0]) || 'Ketua Tim Peneliti';
+            const emailContainer = document.getElementById('modalEmailAction');
+            if (item.kontak_email) {
+                emailContainer.innerHTML = `
+                    <a href="mailto:${item.kontak_email}?subject=Inquiry Inovasi: ${encodeURIComponent(item.judul)}" class="px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-slate-900 font-bold rounded-xl text-xs transition-all flex items-center space-x-1.5">
+                        <i class="fa-solid fa-envelope"></i>
+                        <span>Hubungi Peneliti</span>
+                    </a>
+                `;
+            } else {
+                emailContainer.innerHTML = `
+                    <span class="text-xs text-slate-400">poltekkestasikmalaya.ac.id</span>
+                `;
+            }
+
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                card.classList.remove('scale-95', 'opacity-0');
+                card.classList.add('scale-100', 'opacity-100');
+            }, 10);
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('detailModal');
+            const card = document.getElementById('modalCard');
+            card.classList.remove('scale-100', 'opacity-100');
+            card.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                activeModalItem = null;
+            }, 200);
+        }
+
+        // Trigger fullscreen image from modal
+        function triggerModalImageFullscreen() {
+            if (!activeModalItem || !activeModalItem.image) return;
+            const imgSrc = `katalog_assets/images/${activeModalItem.image}`;
+            openFullscreenImage(imgSrc, activeModalItem.judul);
+        }
+
+        // FULLSCREEN LIGHTBOX FUNCTIONS
+        function openFullscreenImage(imgSrc, title) {
+            if (!imgSrc) return;
+            const lightbox = document.getElementById('lightboxModal');
+            const lightboxImg = document.getElementById('lightboxImage');
+            const lightboxTitle = document.getElementById('lightboxTitle');
+            const downloadBtn = document.getElementById('lightboxDownloadBtn');
+
+            lightboxImg.src = imgSrc;
+            lightboxTitle.textContent = title || 'Pratinjau Gambar Inovasi';
+            downloadBtn.href = imgSrc;
+            downloadBtn.setAttribute('download', (title || 'inovasi_polkestama').replace(/[^a-zA-Z0-9_-]/g, '_') + '.png');
+
+            resetLightboxZoom();
+
+            lightbox.classList.remove('hidden');
+            setTimeout(() => {
+                lightbox.classList.remove('opacity-0');
+                lightbox.classList.add('opacity-100');
+            }, 10);
+        }
+
+        function closeLightbox() {
+            const lightbox = document.getElementById('lightboxModal');
+            lightbox.classList.remove('opacity-100');
+            lightbox.classList.add('opacity-0');
+            setTimeout(() => {
+                lightbox.classList.add('hidden');
+            }, 250);
+        }
+
+        function handleLightboxBackdropClick(e) {
+            if (e.target.id === 'lightboxModal' || e.target.id === 'lightboxCanvas') {
+                closeLightbox();
+            }
+        }
+
+        function zoomLightbox(delta) {
+            lightboxCurrentScale = Math.min(Math.max(0.5, lightboxCurrentScale + delta), 3.5);
+            applyLightboxTransform();
+        }
+
+        function resetLightboxZoom() {
+            lightboxCurrentScale = 1.0;
+            applyLightboxTransform();
+        }
+
+        function applyLightboxTransform() {
+            const img = document.getElementById('lightboxImage');
+            const label = document.getElementById('lightboxZoomLabel');
+            img.style.transform = `scale(${lightboxCurrentScale})`;
+            label.textContent = `${Math.round(lightboxCurrentScale * 100)}%`;
+        }
+
+        function handleLightboxWheel(e) {
+            e.preventDefault();
+            if (e.deltaY < 0) {
+                zoomLightbox(0.15);
+            } else {
+                zoomLightbox(-0.15);
+            }
+        }
+
+        // ESC Key to close modal or lightbox
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                const lightbox = document.getElementById('lightboxModal');
+                if (!lightbox.classList.contains('hidden')) {
+                    closeLightbox();
+                    return;
+                }
+                const modal = document.getElementById('detailModal');
+                if (!modal.classList.contains('hidden')) {
+                    closeModal();
+                }
+            }
+        });
+
+        // Print Single Flyer
+        function printSingleFlyer() {
+            if (!activeModalItem) return;
+            const item = activeModalItem;
+            const printWindow = window.open('', '_blank');
+            const imgSrc = item.image ? `katalog_assets/images/${item.image}` : '';
+            const authors = (item.peneliti || []).join(', ');
+
+            printWindow.document.write(`
+                <html>
+                <head>
+                    <title>Lembar Inovasi - ${item.judul}</title>
+                    <style>
+                        body { font-family: 'Helvetica Neue', Arial, sans-serif; padding: 30px; color: #1e293b; }
+                        .header { border-bottom: 2px solid #059669; padding-bottom: 12px; margin-bottom: 20px; }
+                        .title { font-size: 18pt; font-weight: bold; margin: 8px 0; color: #0f172a; }
+                        .badge { display: inline-block; padding: 4px 10px; background: #ecfdf5; color: #047857; font-size: 9pt; font-weight: bold; border-radius: 6px; }
+                        .spec-table { width: 100%; border-collapse: collapse; margin: 15px 0; }
+                        .spec-table td { padding: 8px; border-bottom: 1px solid #e2e8f0; font-size: 10pt; }
+                        .spec-table td.label { font-weight: bold; width: 30%; color: #64748b; }
+                        .box { background: #f8fafc; border: 1px solid #e2e8f0; padding: 14px; border-radius: 8px; margin-bottom: 15px; font-size: 10.5pt; line-height: 1.5; }
+                        .img-box { text-align: center; margin: 15px 0; }
+                        .img-box img { max-height: 250px; border-radius: 8px; }
+                    </style>
+                </head>
+                <body>
+                    <div class="header">
+                        <span class="badge">E-Katalog Inovasi Poltekkes Kemenkes Tasikmalaya</span>
+                        <div class="title">${item.judul}</div>
+                        <div style="font-size: 10pt; color: #64748b;"><strong>Jurusan:</strong> ${item.jurusan} | <strong>Kategori:</strong> ${item.kategori_inovasi}</div>
+                    </div>
+                    ${imgSrc ? `<div class="img-box"><img src="${imgSrc}"></div>` : ''}
+                    <table class="spec-table">
+                        <tr><td class="label">Tim Peneliti</td><td>${authors}</td></tr>
+                        <tr><td class="label">Skema Penelitian</td><td>${item.skema}</td></tr>
+                        <tr><td class="label">Tingkat Kesiapan (TKT)</td><td><strong>${item.tkt}</strong></td></tr>
+                        <tr><td class="label">Status HKI</td><td>${item.hki}</td></tr>
+                        <tr><td class="label">Uji Lab / Validasi</td><td>${item.uji_lab}</td></tr>
+                        <tr><td class="label">Kontak Peneliti</td><td>${item.kontak_nama} (${item.kontak_email || 'Poltekkes Tasikmalaya'})</td></tr>
+                    </table>
+                    <h3>Deskripsi Singkat Produk Inovasi</h3>
+                    <div class="box">${item.deskripsi || '-'}</div>
+                    <h3>Keunggulan & Nilai Kebaruan</h3>
+                    <div class="box" style="background: #fffbeb; border-color: #fde68a;">${item.keunggulan || '-'}</div>
+                    <div style="text-align: center; font-size: 8pt; color: #94a3b8; margin-top: 30px;">
+                        Dicetak secara resmi dari Sistem E-Katalog Hasil Penelitian Poltekkes Kemenkes Tasikmalaya
+                    </div>
+                </body>
+                </html>
+            `);
+            printWindow.document.close();
+            printWindow.focus();
+            setTimeout(() => printWindow.print(), 500);
+        }
+
+        // Export to CSV
+        function exportToCSV() {
+            const headers = ['No', 'Judul Inovasi', 'Tim Peneliti', 'Jurusan', 'Jenis Inovasi', 'Skema', 'TKT', 'Status HKI', 'Uji Lab', 'Deskripsi', 'Keunggulan', 'Kontak Nama', 'Kontak Email'];
+            const rows = currentFilteredData.map((d, i) => [
+                i + 1,
+                `"${(d.judul || '').replace(/"/g, '""')}"`,
+                `"${((d.peneliti || []).join('; ')).replace(/"/g, '""')}"`,
+                `"${(d.jurusan || '').replace(/"/g, '""')}"`,
+                `"${(d.kategori_inovasi || '').replace(/"/g, '""')}"`,
+                `"${(d.skema || '').replace(/"/g, '""')}"`,
+                `"${(d.tkt || '').replace(/"/g, '""')}"`,
+                `"${(d.hki || '').replace(/"/g, '""')}"`,
+                `"${(d.uji_lab || '').replace(/"/g, '""')}"`,
+                `"${(d.deskripsi || '').replace(/"/g, '""')}"`,
+                `"${(d.keunggulan || '').replace(/"/g, '""')}"`,
+                `"${(d.kontak_nama || '').replace(/"/g, '""')}"`,
+                `"${(d.kontak_email || '').replace(/"/g, '""')}"`
+            ]);
+
+            const csvContent = 'data:text/csv;charset=utf-8,﻿' + [headers.join(','), ...rows.map(e => e.join(','))].join('\n');
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement('a');
+            link.setAttribute('href', encodedUri);
+            link.setAttribute('download', 'Katalog_Inovasi_Penelitian_Poltekkes_Tasikmalaya.csv');
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', () => {
+            renderCatalog();
+        });
+    </script>
+</body>
+</html>
